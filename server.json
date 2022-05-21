@@ -1,0 +1,9 @@
+{
+	"internal": {
+		"port": ":5800",
+		"apikey": ["shaasd468d"]
+	},
+	"database": {
+		"timeOut": 5
+	}
+}
