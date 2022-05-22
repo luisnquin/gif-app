@@ -16,7 +16,7 @@ func main() {
 
 	server := echo.New()
 
-	server.Use(middleware.Logger(), middleware.Recover())
+	server.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
 
 	server.POST("/login", auth.LoginHandler())
 
@@ -27,7 +27,7 @@ func main() {
 }
 
 func preLoad() {
-	queue := utils.HandleExit()
+	queue := utils.HandleExit(1)
 
 	config.Load()
 

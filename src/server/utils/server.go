@@ -6,8 +6,8 @@ import (
 	"syscall"
 )
 
-func HandleExit() chan func() {
-	queue := make(chan func(), 1)
+func HandleExit(queueSize int) chan func() {
+	queue := make(chan func(), queueSize)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGTERM, syscall.SIGKILL)

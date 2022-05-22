@@ -4,13 +4,10 @@ import (
 	"crypto/rsa"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/luisnquin/meow-app/src/server/config"
-	"github.com/luisnquin/meow-app/src/server/log"
 	"github.com/luisnquin/meow-app/src/server/models"
 )
 
@@ -19,18 +16,6 @@ var (
 
 	privateKey *rsa.PrivateKey
 )
-
-/*
-	pubCont, err := ioutil.ReadFile("./public.rsa.pub")
-	if err != nil {
-		panic(err)
-	}
-
-	publicKey, err := jwt.ParseRSAPublicKeyFromPEM(pubCont)
-	if err != nil {
-		panic(err)
-	}
-*/
 
 func init() {
 	privCont, err := ioutil.ReadFile("./private.rsa.key")
@@ -74,24 +59,13 @@ func LoginHandler() echo.HandlerFunc {
 
 		user.Password = ""
 
-		claims := models.Claims{
-			User: user,
-			StandardClaims: jwt.StandardClaims{
-				ExpiresAt: time.Now().Add(time.Hour * config.Server.Internal.TokenExpirationTime).Unix(),
-			},
-		}
-
-		token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
-
-		signedToken, err := token.SignedString(privateKey)
+		token, err := genSignedJWTToken(user)
 		if err != nil {
-			log.Error(err)
-
 			return echo.ErrInternalServerError
 		}
 
 		return c.JSON(http.StatusOK, echo.Map{
-			"token": signedToken,
+			"token": token,
 		})
 	}
 }
