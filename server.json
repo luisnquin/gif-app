@@ -1,9 +1,12 @@
 {
 	"internal": {
 		"port": ":5800",
-		"apikey": ["shaasd468d"]
+		"apikey": ["shaasd468d"],
+		"tokenExpirationTime": 24
 	},
 	"database": {
-		"timeOut": 5
+		"timeOut": 5,
+		"inLocalDsn": "dbname=dev user=root password=root host=localhost port=5810 sslmode=disable",
+		"inContainerDsn": "dbname=dev user=root password=root host=%s port=5432 sslmode=disable"
 	}
 }

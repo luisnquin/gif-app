@@ -24,3 +24,9 @@ func HandleExit() chan func() {
 
 	return queue
 }
+
+func IsRunningInADockerContainer() bool {
+	_, err := os.Stat("/.dockerenv")
+
+	return err == nil
+}

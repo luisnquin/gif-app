@@ -10,6 +10,7 @@ import (
 	// PostgreSQL driver.
 	_ "github.com/lib/pq"
 	"github.com/luisnquin/meow-app/src/server/config"
+	"github.com/luisnquin/meow-app/src/server/utils"
 )
 
 const (
@@ -43,14 +44,11 @@ func Connect(dbms DBMS) func() error {
 
 	switch dbms {
 	case Postgres:
-		password := os.Getenv("POSTGRES_PASSWORD")
-		database := os.Getenv("POSTGRES_DB")
-		user := os.Getenv("POSTGRES_USER")
-		port := os.Getenv("DB_PORT")
-		host := os.Getenv("HOST")
-
-		dsn = "dbname=%s user=%s password=%s host=%s port=%s sslmode=disable"
-		dsn = fmt.Sprintf(dsn, database, user, password, host, port)
+		if utils.IsRunningInADockerContainer() {
+			dsn = fmt.Sprintf(config.Server.Database.InContainerDSN, os.Getenv("HOST"))
+		} else {
+			dsn = config.Server.Database.InLocalDSN
+		}
 
 		driver = "postgres"
 

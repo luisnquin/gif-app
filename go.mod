@@ -4,7 +4,9 @@ go 1.18
 
 require (
 	github.com/fatih/color v1.13.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/labstack/echo v3.3.10+incompatible
+	github.com/labstack/echo/v4 v4.7.2
 	github.com/lib/pq v1.10.6
 )
 
@@ -18,5 +20,6 @@ require (
 	golang.org/x/crypto v0.0.0-20220518034528-6f7dac969898 // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/time v0.0.0-20201208040808-7e3f01d25324 // indirect
 )

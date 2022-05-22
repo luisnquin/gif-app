@@ -24,7 +24,6 @@ services:
             - postgres_db
         restart: always
         environment:
-            DB_PORT: 5432
             HOST: postgres_db
         env_file:
             - .env

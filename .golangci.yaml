@@ -6,3 +6,5 @@ linters:
         - gochecknoglobals
         - gci
         - varnamelen
+        - wrapcheck
+        - durationcheck

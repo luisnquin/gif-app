@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 var Server Configuration
@@ -33,10 +34,13 @@ type Configuration struct {
 }
 
 type internal struct {
-	Port   string   `json:"port"`
-	APIKey []string `json:"apikey"`
+	Port                string        `json:"port"`
+	APIKey              []string      `json:"apikey"`
+	TokenExpirationTime time.Duration `json:"tokenExpirationTime"`
 }
 
 type database struct {
-	SecondsToTimeOut int `json:"timeOut"`
+	SecondsToTimeOut int    `json:"timeOut"`
+	InLocalDSN       string `json:"inLocalDsn"`
+	InContainerDSN   string `json:"inContainerDsn"`
 }
