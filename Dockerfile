@@ -5,7 +5,7 @@ ARG project_name=meow-app
 WORKDIR /home
 
 # Essential pkgs
-# RUN apk add openssl
+RUN apk add openssl
 RUN apk add ssh-keygen
 RUN apk add bash
 RUN apk add curl
@@ -28,9 +28,6 @@ RUN (cd ${project_name}; go build -o ../server ./src/server/cmd/main.go)
 RUN rm -rf ${project_name}
 
 # Public and private keys
-RUN openssl genrsa -out private.rsa 1024
-RUN openssl rsa -in private.rsa -pubout > public.rsa.pub
-
 RUN ssh-keygen -t rsa -b 4096 -m PEM -f private.rsa.key
 RUN openssl rsa -in private.rsa.key -pubout -outform PEM -out public.rsa.key
 
