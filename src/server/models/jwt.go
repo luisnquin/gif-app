@@ -6,3 +6,7 @@ type Claims struct {
 	User `json:"user"`
 	jwt.StandardClaims
 }
+
+type TokenResponse struct {
+	Token string `json:"token"`
+}

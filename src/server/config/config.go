@@ -37,10 +37,11 @@ type internal struct {
 	Port                string        `json:"port"`
 	APIKey              []string      `json:"apikey"`
 	TokenExpirationTime time.Duration `json:"tokenExpirationTime"`
+	EmailRegex          string        `json:"emailRegex"`
 }
 
 type database struct {
-	SecondsToTimeOut int    `json:"timeOut"`
-	InLocalDSN       string `json:"inLocalDsn"`
-	InContainerDSN   string `json:"inContainerDsn"`
+	SecondsToTimeOut time.Duration `json:"timeOut"`
+	InLocalDSN       string        `json:"inLocalDsn"`
+	InContainerDSN   string        `json:"inContainerDsn"`
 }

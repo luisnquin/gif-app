@@ -19,6 +19,7 @@ func main() {
 	server.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
 
 	server.POST("/login", auth.LoginHandler())
+	server.POST("/register", auth.RegisterHandler())
 
 	server.GET("/unrestricted", handlers.AHandler())
 	server.GET("/restricted", handlers.BHandler(), middleware.JWTWithConfig(auth.Config))

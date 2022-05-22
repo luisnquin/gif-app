@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"os"
 	"time"
@@ -16,6 +17,10 @@ import (
 const (
 	Postgres DBMS = 1
 	MySQL    DBMS = 2
+)
+
+var (
+	ErrFailedToSaveInDB = errors.New("failed to save in database")
 )
 
 var DB Database
