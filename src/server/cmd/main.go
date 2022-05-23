@@ -1,40 +1,21 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"context"
+
 	"github.com/luisnquin/meow-app/src/server/auth"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/handlers"
-	"github.com/luisnquin/meow-app/src/server/log"
+	"github.com/luisnquin/meow-app/src/server/repository"
 	"github.com/luisnquin/meow-app/src/server/store"
-	"github.com/luisnquin/meow-app/src/server/utils"
+	"go.uber.org/fx"
 )
 
 func main() {
-	preLoad()
-
-	server := echo.New()
-
-	server.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
-
-	server.POST("/login", auth.LoginHandler())
-	server.POST("/register", auth.RegisterHandler())
-
-	server.GET("/unrestricted", handlers.AHandler())
-	server.GET("/restricted", handlers.BHandler(), middleware.JWTWithConfig(auth.Config))
-
-	server.Logger.Fatal(server.Start(config.Server.Internal.Port))
-}
-
-func preLoad() {
-	queue := utils.HandleExit(1)
-
-	config.Load()
-
-	disconnectDb := store.Connect(store.Postgres)
-
-	queue <- func() { log.FatalWithCheck(disconnectDb()) }
-
-	close(queue)
+	if err := fx.New(
+		fx.Provide(config.New, store.New, repository.New, auth.New),
+		fx.Invoke(handlers.New),
+	).Start(context.Background()); err != nil {
+		panic(err)
+	}
 }

@@ -5,26 +5,29 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/models"
 )
 
-func genSignedJWTToken(user models.User) (string, error) {
+func (a *Auth) genSignedJWTToken(user models.User) (string, error) {
 	claims := models.Claims{
 		User: user,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * config.Server.Internal.TokenExpirationTime).Unix(),
+			ExpiresAt: a.getTokenTimeout().Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
 
-	signedToken, err := token.SignedString(privateKey)
+	signedToken, err := token.SignedString(a.privateKey)
 	if err != nil {
 		return "", err
 	}
 
 	return signedToken, nil
+}
+
+func (a *Auth) getTokenTimeout() time.Time {
+	return time.Now().Add(time.Hour * a.config.Internal.TokenExpirationTime)
 }
 
 // The user is saved in the echo context due to the JWT token.

@@ -1,28 +1,35 @@
 package handlers
 
 import (
-	"net/http"
+	"context"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/meow-app/src/server/auth"
+	"github.com/luisnquin/meow-app/src/server/config"
+	"github.com/luisnquin/meow-app/src/server/repository"
+	"go.uber.org/fx"
 )
 
-func AHandler() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.JSON(http.StatusOK, echo.Map{"mmm": "patas"})
-	}
-}
+func New(lc fx.Lifecycle, config *config.Configuration, provider *repository.Provider) any {
+	server := echo.New()
 
-func BHandler() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		user, ok := auth.GetUserFromContext(c)
-		if !ok {
-			return echo.ErrInternalServerError
-		}
+	auth := auth.New(config, provider)
 
-		return c.JSON(http.StatusOK, echo.Map{
-			"email":    user.Email,
-			"username": user.Username,
-		})
-	}
+	server.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
+
+	registerHandlers(server, auth)
+
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			go server.Logger.Fatal(server.Start(config.Internal.Port))
+
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			return server.Shutdown(ctx)
+		},
+	})
+
+	return 0
 }

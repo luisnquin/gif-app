@@ -13,6 +13,8 @@ services:
             - default
         ports:
           - 5810:5432
+        volumes:
+            - ./build/database/data:/var/lib/postgresql/data:rw
 
     app_server:
         build: .

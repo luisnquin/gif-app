@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"context"
 	"crypto/rsa"
 	"database/sql"
 	"errors"
@@ -15,16 +16,12 @@ import (
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/log"
 	"github.com/luisnquin/meow-app/src/server/models"
-	userProxy "github.com/luisnquin/meow-app/src/server/provider/user"
+	"github.com/luisnquin/meow-app/src/server/repository"
 	"github.com/luisnquin/meow-app/src/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
-var (
-	Config middleware.JWTConfig
-
-	privateKey *rsa.PrivateKey
-)
+// BasicAuthConfig middleware.BasicAuthConfig.
 
 const (
 	AdminRole       string = "PRIVILEGED"
@@ -32,12 +29,23 @@ const (
 )
 
 func init() {
+
+}
+
+type Auth struct {
+	config     *config.Configuration
+	provider   *repository.Provider
+	JWTConfig  middleware.JWTConfig
+	privateKey *rsa.PrivateKey
+}
+
+func New(config *config.Configuration, provider *repository.Provider) *Auth {
 	privCont, err := ioutil.ReadFile("./private.rsa.key")
 	if err != nil {
 		panic(err)
 	}
 
-	privateKey, err = jwt.ParseRSAPrivateKeyFromPEM(privCont)
+	privateKey, err := jwt.ParseRSAPrivateKeyFromPEM(privCont)
 	if err != nil {
 		panic(err)
 	}
@@ -52,37 +60,44 @@ func init() {
 		panic(err)
 	}
 
-	Config = middleware.JWTConfig{
-		Claims:        &models.Claims{},
-		SigningKey:    privateKey,
-		SigningMethod: jwt.SigningMethodRS256.Alg(),
-		KeyFunc: func(token *jwt.Token) (interface{}, error) {
-			return publicKey, nil
+	return &Auth{
+		privateKey: privateKey,
+		provider:   provider,
+		config:     config,
+		JWTConfig: middleware.JWTConfig{
+			SigningMethod: jwt.SigningMethodRS256.Alg(),
+			Claims:        &models.Claims{},
+			SigningKey:    privateKey,
+			KeyFunc: func(token *jwt.Token) (any, error) {
+				return publicKey, nil
+			},
 		},
 	}
 }
 
-func LoginHandler() echo.HandlerFunc {
+func (a *Auth) LoginHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var userReq models.User
+		var req models.User
 
-		err := c.Bind(&userReq)
+		err := c.Bind(&req)
 		if err != nil {
 			return echo.ErrUnauthorized
 		}
 
-		user, err := userProxy.GetByEmailOrUsername(userReq.Username, userReq.Email)
+		user, err := a.provider.GetUserByEmailOrUsername(c.Request().Context(), req.Username, req.Email)
 		if err != nil {
 			log.Error(err)
 
 			if errors.Is(err, sql.ErrNoRows) {
 				return echo.ErrUnauthorized
+			} else if errors.Is(err, context.Canceled) {
+				return echo.ErrBadRequest
 			}
 
 			return echo.ErrInternalServerError
 		}
 
-		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userReq.Password))
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
 		if err != nil {
 			log.Error(err)
 
@@ -91,20 +106,31 @@ func LoginHandler() echo.HandlerFunc {
 
 		user.Password = ""
 
-		token, err := genSignedJWTToken(user)
+		token, err := a.genSignedJWTToken(user)
 		if err != nil {
 			log.Error(err)
 
 			return echo.ErrInternalServerError
 		}
 
+		c.SetCookie(&http.Cookie{
+			Expires:  a.getTokenTimeout(),
+			HttpOnly: true,
+			Name:     "token",
+			Value:    token,
+		})
+
 		return c.JSON(http.StatusOK, models.TokenResponse{
 			Token: token,
 		})
+
+		// return c.JSON(http.StatusOK, models.ShortResponse{
+		// 	Message: "Token now in cookies",
+		// })
 	}
 }
 
-func RegisterHandler() echo.HandlerFunc {
+func (a *Auth) RegisterHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var user models.User
 
@@ -117,11 +143,7 @@ func RegisterHandler() echo.HandlerFunc {
 			return echo.ErrBadRequest
 		}
 
-		if !emailIsValid(user.Email) {
-			return echo.ErrBadRequest
-		}
-
-		exists, err := userProxy.UsernameOrEmailExists(user.Username, user.Email)
+		exists, err := a.provider.UsernameOrEmailExists(c.Request().Context(), user.Username, user.Email)
 		if err != nil {
 			return echo.ErrInternalServerError
 		}
@@ -142,7 +164,7 @@ func RegisterHandler() echo.HandlerFunc {
 
 		// Add email verification.
 
-		err = userProxy.Save(user)
+		err = a.provider.SaveUser(c.Request().Context(), user)
 		if err != nil {
 			log.Error(err)
 
@@ -153,11 +175,53 @@ func RegisterHandler() echo.HandlerFunc {
 	}
 }
 
-func emailIsValid(email string) bool {
-	rexp := regexp.MustCompile(config.Server.Internal.EmailRegex)
+func (a *Auth) emailIsValid(email string) bool {
+	rexp := regexp.MustCompile(a.config.Internal.EmailRegex)
 	if !rexp.MatchString(email) {
 		return false
 	}
 
 	return true
 }
+
+/*
+	BasicAuthConfig = middleware.BasicAuthConfig{
+		Validator: func(username, password string, c echo.Context) (bool, error) {
+			user, err := userProxy.GetByEmailOrUsername(username, "")
+			if err != nil {
+				log.Error(err)
+
+				return false, err
+			}
+
+			err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+			if err != nil {
+				log.Error(err)
+
+				return false, err
+			}
+
+			signedToken, err := genSignedJWTToken(user)
+			if err != nil {
+				return false, err
+			}
+
+			token, err := jwt.Parse(signedToken, func(t *jwt.Token) (any, error) {
+				return publicKey, nil
+			})
+
+			if err != nil {
+				return false, err
+			}
+
+			c.Set("user", token)
+
+			return true, nil
+		},
+		Skipper: func(c echo.Context) bool {
+			_, ok := GetUserFromContext(c)
+
+			return ok
+		},
+	}
+*/

@@ -7,9 +7,7 @@ import (
 	"time"
 )
 
-var Server Configuration
-
-func Load() {
+func New() *Configuration {
 	file, err := os.Open("./server.json")
 	if err != nil {
 		panic(err)
@@ -17,15 +15,19 @@ func Load() {
 
 	defer file.Close()
 
-	config, err := ioutil.ReadAll(file)
+	content, err := ioutil.ReadAll(file)
 	if err != nil {
 		panic(err)
 	}
 
-	err = json.Unmarshal(config, &Server)
+	var config Configuration
+
+	err = json.Unmarshal(content, &config)
 	if err != nil {
 		panic(err)
 	}
+
+	return &config
 }
 
 type Configuration struct {

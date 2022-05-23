@@ -8,3 +8,4 @@ linters:
         - varnamelen
         - wrapcheck
         - durationcheck
+        - ireturn

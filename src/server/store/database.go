@@ -12,81 +12,80 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/utils"
+	"go.uber.org/fx"
 )
 
-const (
-	Postgres DBMS = 1
-	MySQL    DBMS = 2
-)
+// const (
+// 	Postgres DBMS = 1
+// 	MySQL    DBMS = 2
+// )
 
-var (
-	ErrFailedToSaveInDB = errors.New("failed to save in database")
-)
+// type DBMS int
 
-var DB Database
+var ErrFailedToSaveInDB = errors.New("failed to save in DB")
 
-type (
-	Database struct {
-		db *sql.DB
-	}
-
-	DBMS int
-)
-
-/*
-	type Databaser interface {
-		Query(query string, args ...any) (*sql.Rows, error)
-		QueryRow(query string, args ...any) *sql.Row
-		Exec(query string, args ...any) (sql.Result, error)
-	}
-*/
-
-func Connect(dbms DBMS) func() error {
-	var (
-		driver string
-		dsn    string
-	)
-
-	switch dbms {
-	case Postgres:
-		if utils.IsRunningInADockerContainer() {
-			dsn = fmt.Sprintf(config.Server.Database.InContainerDSN, os.Getenv("HOST"))
-		} else {
-			dsn = config.Server.Database.InLocalDSN
-		}
-
-		driver = "postgres"
-
-	case MySQL:
-	}
-
-	database, err := sql.Open(driver, dsn)
-	if err != nil {
-		panic("failed to connect to database: " + err.Error())
-	}
-
-	if err = database.Ping(); err != nil {
-		panic("no response from database: " + err.Error())
-	}
-
-	DB.db = database
-
-	return DB.db.Close
+type database struct {
+	config *config.Configuration
+	db     *sql.DB
 }
 
-func (d *Database) QueryRow(query string, args ...any) *sql.Row {
-	timeOut := time.Second * time.Duration(config.Server.Database.SecondsToTimeOut)
+type Databaser interface {
+	Query(ctx context.Context, query string, args ...any) (*sql.Rows, error)
+	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
+	Exec(ctx context.Context, query string, args ...any) (sql.Result, error)
+}
 
-	ctx, cancel := context.WithTimeout(context.Background(), timeOut)
+func New(lc fx.Lifecycle, config *config.Configuration) Databaser {
+	var dsn string
+
+	if utils.IsRunningInADockerContainer() {
+		dsn = fmt.Sprintf(config.Database.InContainerDSN, os.Getenv("HOST"))
+	} else {
+		dsn = config.Database.InLocalDSN
+	}
+
+	var DB database
+
+	DB.config = config
+
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			database, err := sql.Open("postgres", dsn)
+			if err != nil {
+				return fmt.Errorf("failed to connect to database: %w", err)
+			}
+
+			if err = database.Ping(); err != nil {
+				return fmt.Errorf("no response from database: %w", err)
+			}
+
+			DB.db = database
+
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			DB.db.Close()
+
+			return nil
+		},
+	})
+
+	return &DB
+}
+
+func (d *database) QueryRow(ctx context.Context, query string, args ...any) *sql.Row {
+	timeOut := time.Second * d.config.Database.SecondsToTimeOut
+
+	ctx, cancel := context.WithTimeout(ctx, timeOut)
 	defer cancel()
 
 	return d.db.QueryRowContext(ctx, query, args...)
 }
 
-func (d *Database) Query(query string, args ...any) (*sql.Rows, error) {
-	timeOut := time.Second * time.Duration(config.Server.Database.SecondsToTimeOut)
+func (d *database) Query(ctx context.Context, query string, args ...any) (*sql.Rows, error) {
+	timeOut := time.Second * d.config.Database.SecondsToTimeOut
 
-	ctx, cancel := context.WithTimeout(context.Background(), timeOut)
+	ctx, cancel := context.WithTimeout(ctx, timeOut)
 	defer cancel()
 
 	rows, err := d.db.QueryContext(ctx, query, args...)
@@ -97,10 +96,10 @@ func (d *Database) Query(query string, args ...any) (*sql.Rows, error) {
 	return rows, nil
 }
 
-func (d *Database) Exec(query string, args ...any) (sql.Result, error) {
-	timeOut := time.Second * time.Duration(config.Server.Database.SecondsToTimeOut)
+func (d *database) Exec(ctx context.Context, query string, args ...any) (sql.Result, error) {
+	timeOut := time.Second * d.config.Database.SecondsToTimeOut
 
-	ctx, cancel := context.WithTimeout(context.Background(), timeOut)
+	ctx, cancel := context.WithTimeout(ctx, timeOut)
 	defer cancel()
 
 	result, err := d.db.ExecContext(ctx, query, args...)
