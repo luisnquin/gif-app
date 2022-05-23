@@ -4,17 +4,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/meow-app/src/server/auth"
 )
-
-func registerHandlers(server *echo.Echo, auth *auth.Auth) {
-	server.POST("/login", auth.LoginHandler())
-	server.POST("/register", auth.RegisterHandler())
-
-	server.GET("/unrestricted", AHandler())
-	server.GET("/restricted", BHandler(), middleware.JWTWithConfig(auth.JWTConfig))
-}
 
 func AHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {

@@ -29,13 +29,13 @@ type database struct {
 	db     *sql.DB
 }
 
-type Databaser interface {
+type Querier interface {
 	Query(ctx context.Context, query string, args ...any) (*sql.Rows, error)
 	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
 	Exec(ctx context.Context, query string, args ...any) (sql.Result, error)
 }
 
-func New(lc fx.Lifecycle, config *config.Configuration) Databaser {
+func New(lc fx.Lifecycle, config *config.Configuration) Querier {
 	var dsn string
 
 	if utils.IsRunningInADockerContainer() {
