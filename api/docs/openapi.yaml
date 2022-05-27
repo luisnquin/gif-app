@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+    title: API Docs
+    version: 1.0.0
+paths:
+    /login:
+        post:
+            description: Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                username:
+                                    type: string
+                                password:
+                                    type: string
+                        examples:
+                            Just email and password:
+                                value: { 'email': 'aesda55@hotmail.com', 'password': '66adsea' }
+                            Just username and password:
+                                value: { 'username': 'aesda55', 'password': '66adsea' }
+            responses:
+                200:
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    token:
+                                        type: string
+                            example:
+                                {
+                                    'token': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoibHVpc25xdWluIiwiZmlyc3RuYW1lIjoiTHVpcyIsImxhc3RuYW1lIjoiUXVpw7FvbmVzIiwiZW1haWwiOiJscGFhbmRyZXMyMDIwQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiYmlydGhkYXkiOnsiVGltZSI6IjAwMDEtMDEtMDFUMDA6MDA6MDBaIiwiVmFsaWQiOmZhbHNlfSwiY3JlYXRlZEF0IjoiMjAyMi0wNS0yMlQxOTowMToxMy43Njc5OTlaIiwidXBkYXRlZEF0IjoiMjAyMi0wNS0yMlQxOTowMToxMy43NjhaIn0sImV4cCI6MTY1MzcwNzE4NX0.l96_bJosPLa8xa6Fj_TJTbw0JuoYn-1N6MllMjRchv98S4Yz5CmxOJefx3Uw2qZiWKJIQmJi-3vclj0OzEBkG182p0-hOPGvyaB_v6A2__jOqdSxoAhGHZIqobD5EJsVxB7SkriHEExnbdMpT3eWwnAWIekjaAiDQq4KMyOnw49n6AFPHtnaph5MMLUudEONxORxdUTpRd9fjUH1sjltekN-wFrS5sUsa6UWgWZbEB5CF-bycsHc91VN3pLgDATHhZIu8Iy9ATwsOl9FX6nShZPaWpYtO_-4Q6MpN79z6jr0Z2dGIEYqFS1McsrcVMNfRSEMNwwPII90OHNMtcjpre_cIaRYv5cd_w9yY2bl_sblApkczZPUknYyZbvloRuYDxBNaQq5XZXi2hpqCt6Fs_6YpL2-Nn1i4SMC5OktEdinAGJEewteu_iX7xL3zoRx2un4FbmihcFbaEtO_VJHcXJF1BqmwdenacxlMSBz82oaxa_6TXwkYexKj84pGxq9wZ9yFs7ScCeLu22vJ6ifEETK0yTEIaZ2cm29zTgl3aj8bU54pakR-pGkPCM7Xnarea6RDVbTjHdK3agzqwPShL5iIKG6u5ADONLmcWWjHA-HJDCtCMDWyIy5x5vYPnqF8j1Cj9YQ50K2m0fL7_TgIFGGf6-FJXLgoDxqnAuy540'
+                                }
+                401:
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Unauthorized
+                404:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Bad Request
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Internal Server Error
+
+    /register:
+        post:
+            description: Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                firstname:
+                                    type: string
+                                lastname:
+                                    type: string
+                                email:
+                                    type: string
+                                username:
+                                    type: string
+                                password:
+                                    type: string
+                        example:
+                            {
+                                'firstname': 'Pool',
+                                'lastname': 'Cat',
+                                'username': 'catpool11',
+                                'email': 'catpool11@gmail.com',
+                                'password': 'looptac11'
+                            }
+            responses:
+                200:
+                    description: OK
+                404:
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Bad Request
+                500:
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Internal Server Error

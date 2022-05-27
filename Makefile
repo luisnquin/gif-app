@@ -14,3 +14,6 @@ run:
 compose-up:
 	@echo 🚀
 	@docker-compose up -d
+
+docs:
+	@redoc-cli serve api/docs/openapi.yaml
