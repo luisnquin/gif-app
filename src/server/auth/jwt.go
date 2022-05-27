@@ -9,6 +9,8 @@ import (
 )
 
 func (a *Auth) genSignedJWTToken(user models.User) (string, error) {
+	user.Password = ""
+
 	claims := models.Claims{
 		User: user,
 		StandardClaims: jwt.StandardClaims{

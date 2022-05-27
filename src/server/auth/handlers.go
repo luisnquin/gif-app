@@ -24,6 +24,10 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 			return echo.ErrBadRequest
 		}
 
+		if req.Password == "" || (req.Username == "" && req.Email == "") {
+			return echo.ErrBadRequest
+		}
+
 		user, err := a.provider.GetUserByEmailOrUsername(c.Request().Context(), req.Username, req.Email)
 		if err != nil {
 			log.Error(err)
@@ -39,12 +43,10 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 
 		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
 		if err != nil {
-			log.Error(err)
+			log.Warn(err)
 
 			return echo.ErrUnauthorized
 		}
-
-		user.Password = ""
 
 		token, err := a.genSignedJWTToken(user)
 		if err != nil {
@@ -65,10 +67,6 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 		})
 	}
 }
-
-// return c.JSON(http.StatusOK, models.ShortResponse{
-// 	Message: "Token now in cookies",
-// })
 
 func (a *Auth) RegisterHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {

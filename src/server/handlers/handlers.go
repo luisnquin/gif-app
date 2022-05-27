@@ -17,9 +17,26 @@ func Mount(server *echo.Echo, config *config.Configuration, provider *repository
 }
 
 func registerHandlers(server *echo.Echo, auth *auth.Auth) {
-	server.POST("/login", auth.LoginHandler())
 	server.POST("/register", auth.RegisterHandler())
+	server.POST("/login", auth.LoginHandler())
 
-	server.GET("/unrestricted", AHandler())
-	server.GET("/restricted", BHandler(), middleware.JWTWithConfig(auth.JWTConfig))
+	// rewards
+	server.GET("/rewards", nil)
+	// info
+	server.GET("/ranges", nil)
+	// redoc
+	server.GET("/docs", nil)
+
+	// certifications
+	server.Group("/leaks")
+	// posts, history
+	server.Group("/:username", middleware.JWTWithConfig(auth.JWTConfig))
+	// new, :id, latest
+	server.Group("/reports", middleware.JWTWithConfig(auth.JWTConfig))
+	// :id - oficial
+	server.Group("/oficial/news", middleware.JWTWithConfig(auth.JWTConfig))
+	// :id - secret
+	server.Group("/secret/news", middleware.JWTWithConfig(auth.JWTConfig))
+	// :id - possibly
+	server.Group("/post", middleware.JWTWithConfig(auth.JWTConfig))
 }
