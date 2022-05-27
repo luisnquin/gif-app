@@ -8,12 +8,10 @@ import (
 	"github.com/luisnquin/meow-app/src/server/repository"
 )
 
-func Mount(server *echo.Echo, config *config.Configuration, provider *repository.Provider) any {
+func Mount(server *echo.Echo, config *config.Configuration, provider *repository.Provider) {
 	auth := auth.New(server, config, provider)
 
 	registerHandlers(server, auth)
-
-	return 0
 }
 
 func registerHandlers(server *echo.Echo, auth *auth.Auth) {
