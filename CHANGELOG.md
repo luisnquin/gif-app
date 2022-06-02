@@ -1,13 +1,18 @@
-* 4bf4ff2 - (HEAD -> master, origin/master) feat: GitHub Workflows (hace 36 segundos) <Luis Quiñones Requelme>
-* 98103f7 - feat: CHANGELOG.md (hace 6 minutos) <Luis Quiñones Requelme>
-* 65912bb - feat: request verification before query in Login handler, new handlers highly related with crimes and models (hace 13 minutos) <Luis Quiñones Requelme>
-* 0cd552b - refactor: fx implementation and other structs (hace 4 días) <Luis Quiñones Requelme>
-* e7ded7d - feat(README.md): project instalation steps (hace 4 días) <Luis Quiñones Requelme>
-* e18047c - feat: dependencies injection(complex, pending to fix), docker database volumes and basic auth attemp (hace 4 días) <Luis Quiñones Requelme>
-* 971bc6e - feat: register and login, users provider, users table in database with schemas (hace 4 días) <Luis Quiñones Requelme>
-* 86782e2 - feat: jwt auth refactorized and CORS middleware (hace 5 días) <Luis Quiñones Requelme>
-* 70cae4c - fix(Dockerfile): uncommented openssl installation line and generation of private and public keys (hace 5 días) <Luis Quiñones Requelme>
-* e219bdf - feat: jwt auth and database local and "in container" configuration (hace 5 días) <Luis Quiñones Requelme>
-* 883f89f - feat: .local.env and compose containers working in localhost (hace 5 días) <Luis Quiñones Requelme>
-* a302331 - feat: server first steps(configuration, database connection), docker project image and compose (hace 5 días) <Luis Quiñones Requelme>
-* 4f2068c - Initial commit (hace 5 días) <Luis Quiñones Requelme>
+# Meow app - Changelog
+ - fix: server.json and client.json now with 'config-' as prefix [See commit.](https://github.com/luisnquin/meow-app/commit/50caf6f75d8480689ecdb830f293cdc9f4471ab5)<br>
+ - docs: API Docs [See commit.](https://github.com/luisnquin/meow-app/commit/1460d9440b9020c95e1da2fcf9fe45f47b908e80)<br>
+ - fix: unnecessary return in handlers mounting [See commit.](https://github.com/luisnquin/meow-app/commit/e7da909e217d297a2167704277f60a537841c784)<br>
+ - feat: updated CHANGELOG.md [See commit.](https://github.com/luisnquin/meow-app/commit/f61d52d7853055b1419f768e50a1890f8f2b0862)<br>
+ - feat: GitHub Workflows [See commit.](https://github.com/luisnquin/meow-app/commit/4bf4ff2115ba4e2803f84ce1644a520ec870189e)<br>
+ - feat: CHANGELOG.md [See commit.](https://github.com/luisnquin/meow-app/commit/98103f796851352f7499fd1f89d7836dc49a1573)<br>
+ - feat: request verification before query in Login handler, new handlers highly related with crimes and models [See commit.](https://github.com/luisnquin/meow-app/commit/65912bbb062bb6e869ed3280ff89e4a60df1f392)<br>
+ - refactor: fx implementation and other structs [See commit.](https://github.com/luisnquin/meow-app/commit/0cd552b88b900a642dcbc4f41b8a28ababf62527)<br>
+ - feat(README.md): project instalation steps [See commit.](https://github.com/luisnquin/meow-app/commit/e7ded7da585c197179178e3bd5ba3cfa833bb8b3)<br>
+ - feat: dependencies injection(complex, pending to fix), docker database volumes and basic auth attemp [See commit.](https://github.com/luisnquin/meow-app/commit/e18047cf53a6ed4cfc93bd59ce3e5f3fa3e81050)<br>
+ - feat: register and login, users provider, users table in database with schemas [See commit.](https://github.com/luisnquin/meow-app/commit/971bc6e88bb48e2f0aa03d6004aa73db38ab5c16)<br>
+ - feat: jwt auth refactorized and CORS middleware [See commit.](https://github.com/luisnquin/meow-app/commit/86782e20ac8e56bece0e86969639cd45413b0899)<br>
+ - fix(Dockerfile): uncommented openssl installation line and generation of private and public keys [See commit.](https://github.com/luisnquin/meow-app/commit/70cae4c6623405be9068e2acfe209094fad1506d)<br>
+ - feat: jwt auth and database local and "in container" configuration [See commit.](https://github.com/luisnquin/meow-app/commit/e219bdf6bd38426f62861f69ecd3a479fc1ca185)<br>
+ - feat: .local.env and compose containers working in localhost [See commit.](https://github.com/luisnquin/meow-app/commit/883f89fa8b33b7bffc25b480ebaf0ca8447cbff7)<br>
+ - feat: server first steps(configuration, database connection), docker project image and compose [See commit.](https://github.com/luisnquin/meow-app/commit/a302331467168754b1267e04ad7da0200e3590f2)<br>
+ - Initial commit [See commit.](https://github.com/luisnquin/meow-app/commit/4f2068caabba824e667e7cd71b52f8dbe78f8c73)<br>
