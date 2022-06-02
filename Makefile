@@ -21,3 +21,6 @@ docs:
 changelog:
 	@git log --pretty=format:' - %s [See commit.](https://github.com/luisnquin/meow-app/commit/%H)<br>' > CHANGELOG.md
 	@sed  -i '1i # Meow app - Changelog' CHANGELOG.md
+
+env:
+	@if [ ! -f "./venv/bin/activate" ]; then virtualenv venv; fi; source ./venv/bin/activate; pip freeze > requirements.txt
