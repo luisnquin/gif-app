@@ -14,7 +14,7 @@ func Mount(lc fx.Lifecycle, server *echo.Echo, config *config.Configuration) {
 
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			go server.Logger.Fatal(server.Start(config.Internal.Port))
+			server.Logger.Fatal(server.Start(config.Internal.Port))
 
 			return nil
 		},
