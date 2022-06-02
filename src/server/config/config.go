@@ -8,7 +8,7 @@ import (
 )
 
 func New() *Configuration {
-	file, err := os.Open("./server.json")
+	file, err := os.Open("./config-server.json")
 	if err != nil {
 		panic(err)
 	}
