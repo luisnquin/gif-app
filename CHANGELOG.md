@@ -1,4 +1,8 @@
 # Meow app - Changelog
+ - fix: attemp to fix failed job [See commit.](https://github.com/luisnquin/meow-app/commit/439646598190a55751bfd27ac2647d57b53cb04a)<br>
+ - feat: automock tool, first step [See commit.](https://github.com/luisnquin/meow-app/commit/5c8ee4625e9342afe6c5c1d1c8e0d82096556de7)<br>
+ - feat: virtualenv stuff added to Makefile as 'make env' and requirements.txt generated [See commit.](https://github.com/luisnquin/meow-app/commit/8796d9c231cfe5b11fda99b1ed66454f69992177)<br>
+ - feat: 'make changelog' added to Makefile, CHANGELOG.md updated and client.json with server.json, deleted [See commit.](https://github.com/luisnquin/meow-app/commit/99b004b74cc462efd1f6756602a8da857d5793ca)<br>
  - fix: server.json and client.json now with 'config-' as prefix [See commit.](https://github.com/luisnquin/meow-app/commit/50caf6f75d8480689ecdb830f293cdc9f4471ab5)<br>
  - docs: API Docs [See commit.](https://github.com/luisnquin/meow-app/commit/1460d9440b9020c95e1da2fcf9fe45f47b908e80)<br>
  - fix: unnecessary return in handlers mounting [See commit.](https://github.com/luisnquin/meow-app/commit/e7da909e217d297a2167704277f60a537841c784)<br>
