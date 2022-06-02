@@ -15,7 +15,8 @@ func Mount(server *echo.Echo, config *config.Configuration, provider *repository
 }
 
 func registerHandlers(server *echo.Echo, auth *auth.Auth) {
-	server.POST("/register", auth.RegisterHandler())
+	server.POST("/signup", auth.RegisterHandler())
+	server.POST("/logout", auth.LogoutHandler())
 	server.POST("/login", auth.LoginHandler())
 
 	// rewards

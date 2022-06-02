@@ -83,6 +83,8 @@ func (a *Auth) RegisterHandler() echo.HandlerFunc {
 
 		exists, err := a.provider.UsernameOrEmailExists(c.Request().Context(), user.Username, user.Email)
 		if err != nil {
+			log.Error(err)
+
 			return echo.ErrInternalServerError
 		}
 
@@ -92,6 +94,7 @@ func (a *Auth) RegisterHandler() echo.HandlerFunc {
 
 		password, err := utils.GenHashedPassword(user.Password)
 		if err != nil {
+			log.Error(err)
 			return echo.ErrInternalServerError
 		}
 
@@ -108,6 +111,27 @@ func (a *Auth) RegisterHandler() echo.HandlerFunc {
 
 			return echo.ErrInternalServerError
 		}
+
+		return c.NoContent(http.StatusOK)
+	}
+}
+
+func (a *Auth) LogoutHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cookie, err := c.Cookie("token")
+		if err != nil {
+			if errors.Is(err, echo.ErrCookieNotFound) {
+				return echo.ErrBadRequest
+			}
+
+			log.Error(err)
+
+			return echo.ErrInternalServerError
+		}
+
+		cookie.Expires = time.Now().AddDate(0, 0, -1)
+
+		c.SetCookie(cookie)
 
 		return c.NoContent(http.StatusOK)
 	}
