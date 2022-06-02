@@ -7,7 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
@@ -16,18 +15,12 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.18
+        go-version: 1.18.2
 
     - name: Build
-      run: go build -v ./...
-
-    - name: Test
-      run: go test -v ./...
+      run: go build -v ./src/server/cmd/main.go
     
     - name: auto-gofmt
-      # You may pin to the exact commit or the version.
-      # uses: iamnotaturtle/auto-gofmt@5ccb127d147a6f2ea59bcb004be858eb89dc7fbd
       uses: iamnotaturtle/auto-gofmt@v2.0.0
       with:
-        # Commit message, will be ignored if used with same_commit
         commit_message: Formatted
