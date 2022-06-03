@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/models"
@@ -24,8 +23,8 @@ type Auth struct {
 	privateKey *rsa.PrivateKey
 }
 
-func New(server *echo.Echo, config *config.Configuration, provider *repository.Provider) *Auth {
-	privateKey, publicKey := LoadKeys()
+func New(config *config.Configuration, provider *repository.Provider) *Auth {
+	privateKey, publicKey := loadKeys()
 
 	return &Auth{
 		privateKey: privateKey,
@@ -42,7 +41,7 @@ func New(server *echo.Echo, config *config.Configuration, provider *repository.P
 	}
 }
 
-func LoadKeys() (*rsa.PrivateKey, *rsa.PublicKey) {
+func loadKeys() (*rsa.PrivateKey, *rsa.PublicKey) {
 	privCont, err := ioutil.ReadFile("./private.rsa.key")
 	if err != nil {
 		panic(err)

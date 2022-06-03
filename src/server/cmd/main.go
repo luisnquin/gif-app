@@ -1,24 +1,32 @@
 package main
 
 import (
-	"context"
+	"flag"
 
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/api"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/handlers"
 	"github.com/luisnquin/meow-app/src/server/repository"
 	"github.com/luisnquin/meow-app/src/server/store"
-	"go.uber.org/fx"
 )
 
 func main() {
-	app := fx.New(
-		fx.Provide(config.New, store.New, echo.New, repository.New),
-		fx.Invoke(handlers.Mount, api.Mount),
-	)
+	configuration := config.New()
 
-	if err := app.Start(context.Background()); err != nil {
-		panic(err)
-	}
+	port := flag.String("port", configuration.Internal.Port, ":XXXX")
+
+	flag.Parse()
+
+	app := echo.New()
+
+	app.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
+
+	db := store.New(configuration)
+
+	provider := repository.New(db)
+
+	handlers.New(app, configuration, provider).Mount()
+
+	app.Logger.Fatal(app.Start(*port))
 }
