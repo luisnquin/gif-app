@@ -14,7 +14,7 @@ def load_configuration() -> Configuration:
 
 
 def main() -> None:
-    config = load_configuration()
+    config: object = load_configuration()
 
     with connect(dsn=config.database.in_local_dsn) as connection:
         with connection.cursor() as cursor:
