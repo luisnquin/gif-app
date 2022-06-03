@@ -1,4 +1,15 @@
 # Meow app - Changelog
+ - feat: configuration load and connected database in migrations tool [See commit.](https://github.com/luisnquin/meow-app/commit/2af26bd61047222c060b9c2b715a1dbdd62e8dad)<br>
+ - fix: modified json tag to apiKey to Internal struct in configuration pkg [See commit.](https://github.com/luisnquin/meow-app/commit/81f10e197a3ba2b15fda404f7c70dc8ca6305d24)<br>
+ - fix: 'apikey' field to 'apiKey', camelcase as standard in config-server.json [See commit.](https://github.com/luisnquin/meow-app/commit/3b62640c10bcde10d4ec2fc466f20b57d2b1bf41)<br>
+ - feat: nix file, to start nix-shell [See commit.](https://github.com/luisnquin/meow-app/commit/445512742f1aba6b18de495b658d7c312bd38191)<br>
+ - fix: another attempt to fix the github CI [See commit.](https://github.com/luisnquin/meow-app/commit/d6b969a8d8c7c201cfc968d9a5782d14d4df89c3)<br>
+ - feat: '/register' route renamed to '/sigup', fixed premature context timeout in Querier methods, uber fx removed, new --port flag [See commit.](https://github.com/luisnquin/meow-app/commit/6ee4c18134e6c8b3483ffd3804eb5289e1b310d0)<br>
+ - fix(golangci-linter): typecheck disable [See commit.](https://github.com/luisnquin/meow-app/commit/8b0612a837f73fbc00f7572d15789cb4a825e4e4)<br>
+ - feat: logout handler added [See commit.](https://github.com/luisnquin/meow-app/commit/4b950c4ab119ee612a39cec44e14f23e56d9fa1a)<br>
+ - fix: configuration file path updated [See commit.](https://github.com/luisnquin/meow-app/commit/1b360f8a096a6922516524bd36fc40020357eb63)<br>
+ - fix: useless go routine in server startup removed [See commit.](https://github.com/luisnquin/meow-app/commit/2e423eaf37ffc8cb775d0f61ab5960e58c04e17c)<br>
+ - feat: CHANGELOG.md updated [See commit.](https://github.com/luisnquin/meow-app/commit/fae9fde6b58c1d2ce7f5129b65944bb301a56d34)<br>
  - fix: attemp to fix failed job [See commit.](https://github.com/luisnquin/meow-app/commit/439646598190a55751bfd27ac2647d57b53cb04a)<br>
  - feat: automock tool, first step [See commit.](https://github.com/luisnquin/meow-app/commit/5c8ee4625e9342afe6c5c1d1c8e0d82096556de7)<br>
  - feat: virtualenv stuff added to Makefile as 'make env' and requirements.txt generated [See commit.](https://github.com/luisnquin/meow-app/commit/8796d9c231cfe5b11fda99b1ed66454f69992177)<br>
