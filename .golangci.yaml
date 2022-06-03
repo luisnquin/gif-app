@@ -2,9 +2,8 @@ linters:
     enable-all: true
     disable:
         - exhaustivestruct
-        - gochecknoinits
-        - gochecknoglobals
         - gci
+        - typecheck
         - varnamelen
         - wrapcheck
         - durationcheck
