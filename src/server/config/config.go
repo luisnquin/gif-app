@@ -37,7 +37,7 @@ type Configuration struct {
 
 type internal struct {
 	Port                string        `json:"port"`
-	APIKey              []string      `json:"apikey"`
+	APIKey              []string      `json:"apiKey"`
 	TokenExpirationTime time.Duration `json:"tokenExpirationTime"`
 	EmailRegex          string        `json:"emailRegex"`
 }
