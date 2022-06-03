@@ -18,7 +18,7 @@ jobs:
         go-version: 1.18.2
 
     - name: Build
-      run: go build -v ./src/server/cmd/main.go
+      run: make build
     
     - name: auto-gofmt
       uses: iamnotaturtle/auto-gofmt@v2.0.0
