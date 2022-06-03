@@ -1,4 +1,7 @@
 # Meow app - Changelog
+ - fix(tools.migration): type config object in main function [See commit.](https://github.com/luisnquin/meow-app/commit/9519dcae3eb3545720aabab168ef4bb57bf71382)<br>
+ - feat: requirements.txt updated [See commit.](https://github.com/luisnquin/meow-app/commit/7a8258b5585586123f5242813e3a4f8300194df8)<br>
+ - feat: CHANGELOG.md updated [See commit.](https://github.com/luisnquin/meow-app/commit/6529d41762b73e682d759900866068dbc4b9d2d2)<br>
  - feat: configuration load and connected database in migrations tool [See commit.](https://github.com/luisnquin/meow-app/commit/2af26bd61047222c060b9c2b715a1dbdd62e8dad)<br>
  - fix: modified json tag to apiKey to Internal struct in configuration pkg [See commit.](https://github.com/luisnquin/meow-app/commit/81f10e197a3ba2b15fda404f7c70dc8ca6305d24)<br>
  - fix: 'apikey' field to 'apiKey', camelcase as standard in config-server.json [See commit.](https://github.com/luisnquin/meow-app/commit/3b62640c10bcde10d4ec2fc466f20b57d2b1bf41)<br>
