@@ -1,8 +1,10 @@
-.PHONY: build, env, docs
+.PHONY: docs
+.PHONY: env
+.PHONY: build
 
 build:
-	@echo 🗃
 	@go build -o ./build/server ./src/server/cmd/main.go
+	@echo 🗃 builded
 
 image:
 	@echo 🐋
