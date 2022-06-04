@@ -1,4 +1,12 @@
 # Meow app - Changelog
+ - feat: user automock with as CLI with Typer **(5652292)** [See commit.](https://github.com/luisnquin/meow-app/commit/5652292a331ff2d021f329d78cd1e6699062a5a9)<br>
+ - feat: added headers to migration tool **(1115b8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/1115b8ebc3d033fd6fffd8e8dfbb918e6dfab39d)<br>
+ - feat: 'make store' -> starts a postgres and redis containers **(c95a590)** [See commit.](https://github.com/luisnquin/meow-app/commit/c95a590ce34bf7694d6d7b60512a974cb5714d04)<br>
+ - fix: 'redis_cache' missing in 'depends_on' of 'app_server' **(0433f0e)** [See commit.](https://github.com/luisnquin/meow-app/commit/0433f0ee7dd46236d33ae9c65520fc7fa09c2664)<br>
+ - feat: redis implementation in docker-compose and store(reorganized) **(e91114c)** [See commit.](https://github.com/luisnquin/meow-app/commit/e91114cbbc2a5f24012ae0d117456906da747df2)<br>
+ - fix: ineffectual .PHONY **(08cda77)** [See commit.](https://github.com/luisnquin/meow-app/commit/08cda77134af7ca41827a64dfd540862d6a494a6)<br>
+ - feat: docs and examples dirs moved to root dir **(80872e6)** [See commit.](https://github.com/luisnquin/meow-app/commit/80872e6a2fc2cd837e4e32134118cbe0a81207a3)<br>
+ - feat: CHANGELOG.md updated and changed pretty output of 'make changelog' **(7b9c203)** [See commit.](https://github.com/luisnquin/meow-app/commit/7b9c203eaa40d9497e123ada7215f6076205dd47)<br>
  - feat: migration tool working **(0f1029f)** [See commit.](https://github.com/luisnquin/meow-app/commit/0f1029f807c8b9d6fc1faae3681e6fc4698500da)<br>
  - fix: schemas.sql moved to migration tool folder **(36dafe4)** [See commit.](https://github.com/luisnquin/meow-app/commit/36dafe4b6c9817dd88c4e3799fb0fd89ba1fec59)<br>
  - fix: other attempt to fix the CI **(4aed9ae)** [See commit.](https://github.com/luisnquin/meow-app/commit/4aed9aef10791037564b3af89b6f26fe374777d4)<br>
