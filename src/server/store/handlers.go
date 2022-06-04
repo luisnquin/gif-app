@@ -5,43 +5,36 @@ import (
 	"net/http"
 	"os/exec"
 
+	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/meow-app/src/server/log"
 )
 
-func (m *database) HealthHandler() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/plain")
-
-		if err := m.db.Ping(); err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+func (m *database) HealthHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		err := m.db.Ping()
+		if err != nil {
 			log.Error(err)
 
-			return
+			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("connection alive"))
+		return c.String(http.StatusOK, "connection alive")
 	}
 }
 
-func (m *database) AutoMockHandler() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		cmd := exec.CommandContext(r.Context(), "./tools/automock/main.py", "--stdout", "--length=10")
+func (m *database) AutoMockHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cmd := exec.CommandContext(c.Request().Context(), "./tools/automock/main.py", "--stdout", "--length=10")
 		pipe, err := cmd.StdoutPipe()
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-
-			return
+			return echo.ErrInternalServerError
 		}
 
 		defer pipe.Close()
 
 		err = cmd.Start()
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-
-			return
+			return echo.ErrInternalServerError
 		}
 
 		stmts := make([]string, 0)
@@ -53,11 +46,9 @@ func (m *database) AutoMockHandler() http.HandlerFunc {
 
 		err = cmd.Wait()
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-
-			return
+			return echo.ErrInternalServerError
 		}
 
-		w.WriteHeader(http.StatusOK)
+		return c.NoContent(http.StatusOK)
 	}
 }
