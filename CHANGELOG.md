@@ -1,4 +1,8 @@
 # Meow app - Changelog
+ - refactor: variable and function names **(806242a)** [See commit.](https://github.com/luisnquin/meow-app/commit/806242a4b381b0850c8c552c61ad1e812a8ed771)<br>
+ - feat: internal handlers(automock & health) work properly **(4d52403)** [See commit.](https://github.com/luisnquin/meow-app/commit/4d5240357de391cfdeec5a8546f6a9104f864656)<br>
+ - feat: Dockerfile updated to give support to Python 3.10.4 **(ce59987)** [See commit.](https://github.com/luisnquin/meow-app/commit/ce59987e9c1804d408cc247b9685e9e5d7c3ee14)<br>
+ - feat: updated CHANGELOG.md **(8a3dd07)** [See commit.](https://github.com/luisnquin/meow-app/commit/8a3dd07369975cb571879c6108d7dbb92498aed9)<br>
  - feat: Updated Dockerfile and way that server manages containers **(b666143)** [See commit.](https://github.com/luisnquin/meow-app/commit/b66614301cb5cb6a99cfc7b0eff8ed33b31e2c3f)<br>
  - fix: I forgot I use a framework **(9203e48)** [See commit.](https://github.com/luisnquin/meow-app/commit/9203e48765e2fe739cfe2c135bc3b3fa0a4e668e)<br>
  - fix: scanning before command startup, wtf **(4765f8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/4765f8ee1bc3106ed9c80c4debd510174dbd6e70)<br>
