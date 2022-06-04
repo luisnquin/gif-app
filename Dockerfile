@@ -1,15 +1,22 @@
-FROM golang:1.18.2-alpine3.15 AS server
+FROM golang:1.18.2-alpine3.16 AS server
 
 ARG project_name=meow-app
 
 WORKDIR /home
 
 # Essential pkgs
-# RUN apk add openssl
-# RUN apk add ssh-keygen
-RUN apk add bash
-RUN apk add curl
-RUN apk add git
+RUN apk add\
+    bash\
+    git\
+    python3\
+    python3-dev\
+    py3-pip\
+    gcc\
+    g++\
+    libpq-dev
+
+RUN echo 'alias python="python3"' >> ~/.bashrc
+RUN echo 'alias py="python3"' >> ~/.bashrc
 
 # Simulating path
 RUN mkdir -p ./${project_name}/src
@@ -21,14 +28,22 @@ COPY ./go.mod ./${project_name}
 COPY ./go.sum ./${project_name}
 COPY ./private.rsa.key .
 COPY ./public.rsa.key .
-COPY ./tools .
+COPY ./tools ./tools
+
+COPY ./requirements.txt .
 
 # Project build
 RUN (cd ${project_name}; go mod tidy)
 RUN (cd ${project_name}; go build -o ../server ./src/server/cmd/main.go)
+RUN pip install -r requirements.txt
 
 # Cleaning source files
 RUN rm -rf ${project_name}
+RUN apk del \
+    python3-dev\
+    gcc\
+    g++\
+    libpq-dev
 
 # Public and private keys
 # RUN ssh-keygen -t rsa -b 4096 -m PEM -f private.rsa.key
