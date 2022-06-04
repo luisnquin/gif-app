@@ -5,11 +5,9 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"os"
 	"time"
 
 	// PostgreSQL driver.
-
 	_ "github.com/lib/pq"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/utils"
@@ -21,14 +19,12 @@ func initPostgresClient(config *config.Configuration) (Querier, error) {
 	var dsn string
 
 	if utils.IsRunningInADockerContainer() {
-		dsn = fmt.Sprintf(config.Database.InContainerDSN, os.Getenv("HOST"))
+		dsn = config.Database.InContainerDSN
 	} else {
 		dsn = config.Database.InLocalDSN
 	}
 
-	var DB database
-
-	database, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return nil, err
 	}
@@ -36,14 +32,14 @@ func initPostgresClient(config *config.Configuration) (Querier, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
 
-	if err = database.PingContext(ctx); err != nil {
+	if err = db.PingContext(ctx); err != nil {
 		return nil, err
 	}
 
-	DB.config = config
-	DB.db = database
-
-	return &DB, nil
+	return &database{
+		config: config,
+		db:     db,
+	}, nil
 }
 
 type database struct {
@@ -55,6 +51,7 @@ type Querier interface {
 	Query(ctx context.Context, query string, args ...any) (*sql.Rows, error)
 	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
 	Exec(ctx context.Context, query string, args ...any) (sql.Result, error)
+	Ping() error
 }
 
 func (d *database) QueryRow(ctx context.Context, query string, args ...any) *sql.Row {
@@ -86,4 +83,11 @@ func (d *database) Exec(ctx context.Context, query string, args ...any) (sql.Res
 	}
 
 	return result, nil
+}
+
+func (d *database) Ping() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	return d.db.PingContext(ctx)
 }

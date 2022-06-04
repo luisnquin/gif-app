@@ -8,6 +8,10 @@
 	"database": {
 		"timeOut": 5,
 		"inLocalDsn": "dbname=dev user=root password=root host=localhost port=5810 sslmode=disable",
-		"inContainerDsn": "dbname=dev user=root password=root host=%s port=5432 sslmode=disable"
+		"inContainerDsn": "dbname=dev user=root password=root host=postgres_db port=5432 sslmode=disable"
+	},
+	"cache": {
+		"localAddr": "localhost:5820",
+		"containerAddr": "redis_cache:6379"
 	}
 }

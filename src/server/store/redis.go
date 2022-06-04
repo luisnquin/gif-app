@@ -5,18 +5,26 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/luisnquin/meow-app/src/server/config"
+	"github.com/luisnquin/meow-app/src/server/utils"
 )
 
-func initRedisClient(*config.Configuration) (*redis.Client, error) {
+func initRedisClient(config *config.Configuration) (*redis.Client, error) {
+	var addr string
+
+	if utils.IsRunningInADockerContainer() {
+		addr = config.Cache.ContainerAddr
+	} else {
+		addr = config.Cache.LocalAddr
+	}
+
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:5820",
+		Addr:     addr,
 		Username: "",
 		Password: "",
 	})
 
-	status := client.Ping(context.Background())
-
-	if err := status.Err(); err != nil {
+	err := client.Ping(context.Background()).Err()
+	if err != nil {
 		return nil, err
 	}
 

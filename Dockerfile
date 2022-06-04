@@ -21,6 +21,7 @@ COPY ./go.mod ./${project_name}
 COPY ./go.sum ./${project_name}
 COPY ./private.rsa.key .
 COPY ./public.rsa.key .
+COPY ./tools .
 
 # Project build
 RUN (cd ${project_name}; go mod tidy)

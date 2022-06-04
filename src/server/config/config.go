@@ -33,6 +33,7 @@ func New() *Configuration {
 type Configuration struct {
 	Internal internal `json:"internal"`
 	Database database `json:"database"`
+	Cache    cache    `json:"cache"`
 }
 
 type internal struct {
@@ -46,4 +47,9 @@ type database struct {
 	SecondsToTimeOut time.Duration `json:"timeOut"`
 	InLocalDSN       string        `json:"inLocalDsn"`
 	InContainerDSN   string        `json:"inContainerDsn"`
+}
+
+type cache struct {
+	LocalAddr     string `json:"localAddr"`
+	ContainerAddr string `json:"containerAddr"`
 }
