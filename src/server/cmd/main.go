@@ -12,9 +12,9 @@ import (
 )
 
 func main() {
-	configuration := config.New()
+	config := config.New()
 
-	port := flag.String("port", configuration.Internal.Port, ":XXXX")
+	port := flag.String("port", config.Internal.Port, ":XXXX")
 
 	flag.Parse()
 
@@ -22,11 +22,11 @@ func main() {
 
 	app.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
 
-	db, _ := store.New(configuration)
+	db, _ := store.New(config)
 
 	provider := repository.New(db)
 
-	handlers.New(app, configuration, provider).Mount()
+	handlers.New(app, config, provider).Mount()
 
 	app.Logger.Fatal(app.Start(*port))
 }
