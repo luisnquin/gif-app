@@ -33,6 +33,7 @@ services:
         user: root
         depends_on:
             - postgres_db
+            - redis_cache
         restart: always
         environment:
             HOST: postgres_db
