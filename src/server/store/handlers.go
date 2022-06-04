@@ -37,18 +37,18 @@ func (m *database) AutoMockHandler() http.HandlerFunc {
 
 		defer pipe.Close()
 
-		stmts := make([]string, 0)
-
-		s := bufio.NewScanner(pipe)
-		for s.Scan() {
-			stmts = append(stmts, s.Text())
-		}
-
 		err = cmd.Start()
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 
 			return
+		}
+
+		stmts := make([]string, 0)
+
+		s := bufio.NewScanner(pipe)
+		for s.Scan() {
+			stmts = append(stmts, s.Text())
 		}
 
 		err = cmd.Wait()
