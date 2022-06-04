@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from config_model import Configuration
 
 from psycopg2 import connect
