@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build, env
 
 build:
 	@echo 🗃
@@ -24,3 +24,6 @@ changelog:
 
 env:
 	@if [ ! -f "./venv/bin/activate" ]; then virtualenv venv; fi; source ./venv/bin/activate; pip freeze > requirements.txt
+
+migration:
+	@python ./tools/migration/main.py
