@@ -9,6 +9,7 @@ import (
 	"time"
 
 	// PostgreSQL driver.
+
 	_ "github.com/lib/pq"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/utils"
@@ -16,18 +17,7 @@ import (
 
 var ErrFailedToSaveInDB = errors.New("failed to save in DB")
 
-type database struct {
-	config *config.Configuration
-	db     *sql.DB
-}
-
-type Querier interface {
-	Query(ctx context.Context, query string, args ...any) (*sql.Rows, error)
-	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
-	Exec(ctx context.Context, query string, args ...any) (sql.Result, error)
-}
-
-func New(config *config.Configuration) Querier {
+func initPostgresClient(config *config.Configuration) (Querier, error) {
 	var dsn string
 
 	if utils.IsRunningInADockerContainer() {
@@ -38,23 +28,33 @@ func New(config *config.Configuration) Querier {
 
 	var DB database
 
-	DB.config = config
-
 	database, err := sql.Open("postgres", dsn)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*2)
 	defer cancel()
 
 	if err = database.PingContext(ctx); err != nil {
-		panic(err)
+		return nil, err
 	}
 
+	DB.config = config
 	DB.db = database
 
-	return &DB
+	return &DB, nil
+}
+
+type database struct {
+	config *config.Configuration
+	db     *sql.DB
+}
+
+type Querier interface {
+	Query(ctx context.Context, query string, args ...any) (*sql.Rows, error)
+	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
+	Exec(ctx context.Context, query string, args ...any) (sql.Result, error)
 }
 
 func (d *database) QueryRow(ctx context.Context, query string, args ...any) *sql.Row {

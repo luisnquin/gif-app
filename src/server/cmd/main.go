@@ -22,7 +22,7 @@ func main() {
 
 	app.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
 
-	db := store.New(configuration)
+	db, _ := store.New(configuration)
 
 	provider := repository.New(db)
 

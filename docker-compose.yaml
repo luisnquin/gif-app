@@ -16,6 +16,15 @@ services:
         volumes:
             - ./build/database/data:/var/lib/postgresql/data:rw
 
+    redis_cache:
+        image: redis:7.0.0-alpine
+        container_name: redis_cache
+        restart: always
+        networks:
+            - default
+        ports:
+            - 5820:6379
+
     app_server:
         build: .
         container_name: app_server
