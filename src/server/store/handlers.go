@@ -2,6 +2,7 @@ package store
 
 import (
 	"bufio"
+	"fmt"
 	"net/http"
 	"os/exec"
 
@@ -9,21 +10,22 @@ import (
 	"github.com/luisnquin/meow-app/src/server/log"
 )
 
-func (m *database) HealthHandler() echo.HandlerFunc {
+func HealthHandler(db Querier) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		err := m.db.Ping()
+		err := db.Ping()
 		if err != nil {
 			log.Error(err)
 
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		return c.String(http.StatusOK, "connection alive")
+		return c.String(http.StatusOK, "database connection alive")
 	}
 }
 
-func (m *database) AutoMockHandler() echo.HandlerFunc {
+func AutoMockHandler(db Querier) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		// TODO: Let handle tool
 		cmd := exec.CommandContext(c.Request().Context(), "./tools/automock/main.py", "--stdout", "--length=10")
 		pipe, err := cmd.StdoutPipe()
 		if err != nil {
@@ -49,6 +51,13 @@ func (m *database) AutoMockHandler() echo.HandlerFunc {
 			return echo.ErrInternalServerError
 		}
 
-		return c.NoContent(http.StatusOK)
+		for _, stmt := range stmts {
+			_, err := db.Exec(c.Request().Context(), stmt)
+			if err != nil {
+				log.Error(err)
+			}
+		}
+
+		return c.String(http.StatusOK, fmt.Sprintf("%d statements executed!", len(stmts)))
 	}
 }

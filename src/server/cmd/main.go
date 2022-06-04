@@ -26,7 +26,7 @@ func main() {
 
 	provider := repository.New(db)
 
-	handlers.New(app, config, provider).Mount()
+	handlers.New(app, config, provider, db).Mount()
 
 	app.Logger.Fatal(app.Start(*port))
 }

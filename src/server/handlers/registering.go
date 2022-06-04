@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/luisnquin/meow-app/src/server/store"
 )
 
 func (h *HandlerHead) registerAuthHandlers() {
@@ -11,7 +12,8 @@ func (h *HandlerHead) registerAuthHandlers() {
 }
 
 func (h *HandlerHead) registerInternalHandlers() {
-	h.app.GET("/health", nil)
+	h.app.GET("/health", store.HealthHandler(h.db))
+	h.app.POST("/automock", store.AutoMockHandler(h.db))
 }
 
 func (h *HandlerHead) registerHandlers() {
