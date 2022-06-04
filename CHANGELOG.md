@@ -1,4 +1,11 @@
 # Meow app - Changelog
+ - feat: Updated Dockerfile and way that server manages containers **(b666143)** [See commit.](https://github.com/luisnquin/meow-app/commit/b66614301cb5cb6a99cfc7b0eff8ed33b31e2c3f)<br>
+ - fix: I forgot I use a framework **(9203e48)** [See commit.](https://github.com/luisnquin/meow-app/commit/9203e48765e2fe739cfe2c135bc3b3fa0a4e668e)<br>
+ - fix: scanning before command startup, wtf **(4765f8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/4765f8ee1bc3106ed9c80c4debd510174dbd6e70)<br>
+ - feat: automock handler at the point of just capturing stdout **(59999a2)** [See commit.](https://github.com/luisnquin/meow-app/commit/59999a2c3d9b5f4490c2cc755e77570d483ae878)<br>
+ - feat: now the python files are executables **(c0b9339)** [See commit.](https://github.com/luisnquin/meow-app/commit/c0b9339f2491ee5c2c992e7e62053f9e3077567f)<br>
+ - fix: little refactor in main pkg **(dfb8798)** [See commit.](https://github.com/luisnquin/meow-app/commit/dfb8798180f1d8f0ed45ab8ba4e47363724a9d9c)<br>
+ - feat: requriments.txt and CHANGELOG.md updated **(f2dde8f)** [See commit.](https://github.com/luisnquin/meow-app/commit/f2dde8f4f2fdb38f438df314369370982dcff501)<br>
  - feat: user automock with as CLI with Typer **(5652292)** [See commit.](https://github.com/luisnquin/meow-app/commit/5652292a331ff2d021f329d78cd1e6699062a5a9)<br>
  - feat: added headers to migration tool **(1115b8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/1115b8ebc3d033fd6fffd8e8dfbb918e6dfab39d)<br>
  - feat: 'make store' -> starts a postgres and redis containers **(c95a590)** [See commit.](https://github.com/luisnquin/meow-app/commit/c95a590ce34bf7694d6d7b60512a974cb5714d04)<br>
