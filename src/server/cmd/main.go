@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"github.com/luisnquin/meow-app/src/middleware"
 	"github.com/luisnquin/meow-app/src/server/config"
 	"github.com/luisnquin/meow-app/src/server/handlers"
 	"github.com/luisnquin/meow-app/src/server/repository"
@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	config := config.New()
+	config := config.Load()
 
 	port := flag.String("port", config.Internal.Port, ":XXXX")
 
@@ -20,7 +20,7 @@ func main() {
 
 	app := echo.New()
 
-	app.Use(middleware.Logger(), middleware.Recover(), middleware.CORS())
+	middleware.Apply(app)
 
 	db, _ := store.New(config)
 

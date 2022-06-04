@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func New() *Configuration {
+func Load() *Configuration {
 	file, err := os.Open("./config-server.json")
 	if err != nil {
 		panic(err)
