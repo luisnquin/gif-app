@@ -1,4 +1,4 @@
-.PHONY: build, env
+.PHONY: build, env, docs
 
 build:
 	@echo 🗃
@@ -16,7 +16,7 @@ compose-up:
 	@docker-compose up -d
 
 docs:
-	@redoc-cli serve api/docs/openapi.yaml
+	@redoc-cli serve docs/openapi.yaml
 
 changelog:
 	@git log --pretty=format:' - %s **(%h)** [See commit.](https://github.com/luisnquin/meow-app/commit/%H)<br>' > CHANGELOG.md
