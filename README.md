@@ -9,19 +9,26 @@
     ```
 
 -   Generate the public and private keys
+
     ```
      $ ssh-keygen -t rsa -b 4096 -m PEM -f private.rsa.key
      $ openssl rsa -in private.rsa.key -pubout -outform PEM -out public.rsa.key
     ```
+
 -   Install project dependencies
+
     ```
      $ go mod tidy
     ```
--   Initialize the database(in docker)
+
+-   Initialize the database with cache(required to run the application)
+
     ```
-     $ docker compose up -d postgres_db
+     $ make store
     ```
+
 -   Build and run
+
     ```
      $ make build && make run
     ```
