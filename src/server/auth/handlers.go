@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/log"
-	"github.com/luisnquin/meow-app/src/server/models"
-	"github.com/luisnquin/meow-app/src/server/utils"
+	"github.com/luisnquin/gif-app/src/server/log"
+	"github.com/luisnquin/gif-app/src/server/models"
+	"github.com/luisnquin/gif-app/src/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 

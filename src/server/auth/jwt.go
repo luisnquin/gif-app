@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/models"
+	"github.com/luisnquin/gif-app/src/server/models"
 )
 
 func (a *Auth) genSignedJWTToken(user models.User) (string, error) {

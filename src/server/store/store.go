@@ -2,7 +2,7 @@ package store
 
 import (
 	"github.com/go-redis/redis/v8"
-	"github.com/luisnquin/meow-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/config"
 )
 
 func New(config *config.Configuration) (Querier, *redis.Client) {

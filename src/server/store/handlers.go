@@ -7,7 +7,7 @@ import (
 	"os/exec"
 
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/log"
+	"github.com/luisnquin/gif-app/src/server/log"
 )
 
 func HealthHandler(db Querier) echo.HandlerFunc {

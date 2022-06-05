@@ -1,6 +1,6 @@
 FROM golang:1.18.2-alpine3.16 AS server
 
-ARG project_name=meow-app
+ARG project_name=gif-app
 
 WORKDIR /home
 

@@ -1,4 +1,4 @@
-module github.com/luisnquin/meow-app
+module github.com/luisnquin/gif-app
 
 go 1.18
 

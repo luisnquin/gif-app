@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/auth"
+	"github.com/luisnquin/gif-app/src/server/auth"
 )
 
 func AHandler() echo.HandlerFunc {

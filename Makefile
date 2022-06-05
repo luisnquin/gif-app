@@ -20,7 +20,7 @@ docs:
 	@redoc-cli serve docs/openapi.yaml
 
 changelog:
-	@git log --pretty=format:' - %s **(%h)** [See commit.](https://github.com/luisnquin/meow-app/commit/%H)<br>' > CHANGELOG.md
+	@git log --pretty=format:' - %s **(%h)** [See commit.](https://github.com/luisnquin/gif-app/commit/%H)<br>' > CHANGELOG.md
 	@sed  -i '1i # Meow app - Changelog' CHANGELOG.md
 
 env:

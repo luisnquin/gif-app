@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 
-	"github.com/luisnquin/meow-app/src/server/models"
-	"github.com/luisnquin/meow-app/src/server/store"
+	"github.com/luisnquin/gif-app/src/server/models"
+	"github.com/luisnquin/gif-app/src/server/store"
 )
 
 func (p *Provider) SaveUser(ctx context.Context, u models.User) error {

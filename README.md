@@ -1,11 +1,11 @@
-# Meow App
+# Gif App
 
 ## Steps to run:
 
 -   Clone the project to your machine
 
     ```
-     $ git clone https://github.com/luisnquin/meow-app
+     $ git clone https://github.com/luisnquin/gif-app
     ```
 
 -   Generate the public and private keys

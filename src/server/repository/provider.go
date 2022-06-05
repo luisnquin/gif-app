@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/luisnquin/meow-app/src/server/store"
+	"github.com/luisnquin/gif-app/src/server/store"
 )
 
 type Provider struct {

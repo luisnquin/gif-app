@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/luisnquin/meow-app/src/server/store"
+	"github.com/luisnquin/gif-app/src/server/store"
 )
 
 func (h *HandlerHead) registerAuthHandlers() {

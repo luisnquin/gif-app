@@ -6,9 +6,9 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/luisnquin/meow-app/src/server/config"
-	"github.com/luisnquin/meow-app/src/server/models"
-	"github.com/luisnquin/meow-app/src/server/repository"
+	"github.com/luisnquin/gif-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/models"
+	"github.com/luisnquin/gif-app/src/server/repository"
 )
 
 const (

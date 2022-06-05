@@ -1,61 +1,62 @@
 # Meow app - Changelog
- - refactor: variable and function names **(806242a)** [See commit.](https://github.com/luisnquin/meow-app/commit/806242a4b381b0850c8c552c61ad1e812a8ed771)<br>
- - feat: internal handlers(automock & health) work properly **(4d52403)** [See commit.](https://github.com/luisnquin/meow-app/commit/4d5240357de391cfdeec5a8546f6a9104f864656)<br>
- - feat: Dockerfile updated to give support to Python 3.10.4 **(ce59987)** [See commit.](https://github.com/luisnquin/meow-app/commit/ce59987e9c1804d408cc247b9685e9e5d7c3ee14)<br>
- - feat: updated CHANGELOG.md **(8a3dd07)** [See commit.](https://github.com/luisnquin/meow-app/commit/8a3dd07369975cb571879c6108d7dbb92498aed9)<br>
- - feat: Updated Dockerfile and way that server manages containers **(b666143)** [See commit.](https://github.com/luisnquin/meow-app/commit/b66614301cb5cb6a99cfc7b0eff8ed33b31e2c3f)<br>
- - fix: I forgot I use a framework **(9203e48)** [See commit.](https://github.com/luisnquin/meow-app/commit/9203e48765e2fe739cfe2c135bc3b3fa0a4e668e)<br>
- - fix: scanning before command startup, wtf **(4765f8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/4765f8ee1bc3106ed9c80c4debd510174dbd6e70)<br>
- - feat: automock handler at the point of just capturing stdout **(59999a2)** [See commit.](https://github.com/luisnquin/meow-app/commit/59999a2c3d9b5f4490c2cc755e77570d483ae878)<br>
- - feat: now the python files are executables **(c0b9339)** [See commit.](https://github.com/luisnquin/meow-app/commit/c0b9339f2491ee5c2c992e7e62053f9e3077567f)<br>
- - fix: little refactor in main pkg **(dfb8798)** [See commit.](https://github.com/luisnquin/meow-app/commit/dfb8798180f1d8f0ed45ab8ba4e47363724a9d9c)<br>
- - feat: requriments.txt and CHANGELOG.md updated **(f2dde8f)** [See commit.](https://github.com/luisnquin/meow-app/commit/f2dde8f4f2fdb38f438df314369370982dcff501)<br>
- - feat: user automock with as CLI with Typer **(5652292)** [See commit.](https://github.com/luisnquin/meow-app/commit/5652292a331ff2d021f329d78cd1e6699062a5a9)<br>
- - feat: added headers to migration tool **(1115b8e)** [See commit.](https://github.com/luisnquin/meow-app/commit/1115b8ebc3d033fd6fffd8e8dfbb918e6dfab39d)<br>
- - feat: 'make store' -> starts a postgres and redis containers **(c95a590)** [See commit.](https://github.com/luisnquin/meow-app/commit/c95a590ce34bf7694d6d7b60512a974cb5714d04)<br>
- - fix: 'redis_cache' missing in 'depends_on' of 'app_server' **(0433f0e)** [See commit.](https://github.com/luisnquin/meow-app/commit/0433f0ee7dd46236d33ae9c65520fc7fa09c2664)<br>
- - feat: redis implementation in docker-compose and store(reorganized) **(e91114c)** [See commit.](https://github.com/luisnquin/meow-app/commit/e91114cbbc2a5f24012ae0d117456906da747df2)<br>
- - fix: ineffectual .PHONY **(08cda77)** [See commit.](https://github.com/luisnquin/meow-app/commit/08cda77134af7ca41827a64dfd540862d6a494a6)<br>
- - feat: docs and examples dirs moved to root dir **(80872e6)** [See commit.](https://github.com/luisnquin/meow-app/commit/80872e6a2fc2cd837e4e32134118cbe0a81207a3)<br>
- - feat: CHANGELOG.md updated and changed pretty output of 'make changelog' **(7b9c203)** [See commit.](https://github.com/luisnquin/meow-app/commit/7b9c203eaa40d9497e123ada7215f6076205dd47)<br>
- - feat: migration tool working **(0f1029f)** [See commit.](https://github.com/luisnquin/meow-app/commit/0f1029f807c8b9d6fc1faae3681e6fc4698500da)<br>
- - fix: schemas.sql moved to migration tool folder **(36dafe4)** [See commit.](https://github.com/luisnquin/meow-app/commit/36dafe4b6c9817dd88c4e3799fb0fd89ba1fec59)<br>
- - fix: other attempt to fix the CI **(4aed9ae)** [See commit.](https://github.com/luisnquin/meow-app/commit/4aed9aef10791037564b3af89b6f26fe374777d4)<br>
- - fix: Dockerfile broken(solved) **(58162f4)** [See commit.](https://github.com/luisnquin/meow-app/commit/58162f4c352dfac844cc71d475534a12b5657bb2)<br>
- - feat: dockerignore file **(0fce6e6)** [See commit.](https://github.com/luisnquin/meow-app/commit/0fce6e60fb1952275b3a8c8cced07cf816b19c49)<br>
- - feat: CHANGELOG.md updated **(9416838)** [See commit.](https://github.com/luisnquin/meow-app/commit/9416838c7d4949da8b63f62c30d4e96fc8b35071)<br>
- - fix(tools.migration): type config object in main function **(9519dca)** [See commit.](https://github.com/luisnquin/meow-app/commit/9519dcae3eb3545720aabab168ef4bb57bf71382)<br>
- - feat: requirements.txt updated **(7a8258b)** [See commit.](https://github.com/luisnquin/meow-app/commit/7a8258b5585586123f5242813e3a4f8300194df8)<br>
- - feat: CHANGELOG.md updated **(6529d41)** [See commit.](https://github.com/luisnquin/meow-app/commit/6529d41762b73e682d759900866068dbc4b9d2d2)<br>
- - feat: configuration load and connected database in migrations tool **(2af26bd)** [See commit.](https://github.com/luisnquin/meow-app/commit/2af26bd61047222c060b9c2b715a1dbdd62e8dad)<br>
- - fix: modified json tag to apiKey to Internal struct in configuration pkg **(81f10e1)** [See commit.](https://github.com/luisnquin/meow-app/commit/81f10e197a3ba2b15fda404f7c70dc8ca6305d24)<br>
- - fix: 'apikey' field to 'apiKey', camelcase as standard in config-server.json **(3b62640)** [See commit.](https://github.com/luisnquin/meow-app/commit/3b62640c10bcde10d4ec2fc466f20b57d2b1bf41)<br>
- - feat: nix file, to start nix-shell **(4455127)** [See commit.](https://github.com/luisnquin/meow-app/commit/445512742f1aba6b18de495b658d7c312bd38191)<br>
- - fix: another attempt to fix the github CI **(d6b969a)** [See commit.](https://github.com/luisnquin/meow-app/commit/d6b969a8d8c7c201cfc968d9a5782d14d4df89c3)<br>
- - feat: '/register' route renamed to '/sigup', fixed premature context timeout in Querier methods, uber fx removed, new --port flag **(6ee4c18)** [See commit.](https://github.com/luisnquin/meow-app/commit/6ee4c18134e6c8b3483ffd3804eb5289e1b310d0)<br>
- - fix(golangci-linter): typecheck disable **(8b0612a)** [See commit.](https://github.com/luisnquin/meow-app/commit/8b0612a837f73fbc00f7572d15789cb4a825e4e4)<br>
- - feat: logout handler added **(4b950c4)** [See commit.](https://github.com/luisnquin/meow-app/commit/4b950c4ab119ee612a39cec44e14f23e56d9fa1a)<br>
- - fix: configuration file path updated **(1b360f8)** [See commit.](https://github.com/luisnquin/meow-app/commit/1b360f8a096a6922516524bd36fc40020357eb63)<br>
- - fix: useless go routine in server startup removed **(2e423ea)** [See commit.](https://github.com/luisnquin/meow-app/commit/2e423eaf37ffc8cb775d0f61ab5960e58c04e17c)<br>
- - feat: CHANGELOG.md updated **(fae9fde)** [See commit.](https://github.com/luisnquin/meow-app/commit/fae9fde6b58c1d2ce7f5129b65944bb301a56d34)<br>
- - fix: attemp to fix failed job **(4396465)** [See commit.](https://github.com/luisnquin/meow-app/commit/439646598190a55751bfd27ac2647d57b53cb04a)<br>
- - feat: automock tool, first step **(5c8ee46)** [See commit.](https://github.com/luisnquin/meow-app/commit/5c8ee4625e9342afe6c5c1d1c8e0d82096556de7)<br>
- - feat: virtualenv stuff added to Makefile as 'make env' and requirements.txt generated **(8796d9c)** [See commit.](https://github.com/luisnquin/meow-app/commit/8796d9c231cfe5b11fda99b1ed66454f69992177)<br>
- - feat: 'make changelog' added to Makefile, CHANGELOG.md updated and client.json with server.json, deleted **(99b004b)** [See commit.](https://github.com/luisnquin/meow-app/commit/99b004b74cc462efd1f6756602a8da857d5793ca)<br>
- - fix: server.json and client.json now with 'config-' as prefix **(50caf6f)** [See commit.](https://github.com/luisnquin/meow-app/commit/50caf6f75d8480689ecdb830f293cdc9f4471ab5)<br>
- - docs: API Docs **(1460d94)** [See commit.](https://github.com/luisnquin/meow-app/commit/1460d9440b9020c95e1da2fcf9fe45f47b908e80)<br>
- - fix: unnecessary return in handlers mounting **(e7da909)** [See commit.](https://github.com/luisnquin/meow-app/commit/e7da909e217d297a2167704277f60a537841c784)<br>
- - feat: updated CHANGELOG.md **(f61d52d)** [See commit.](https://github.com/luisnquin/meow-app/commit/f61d52d7853055b1419f768e50a1890f8f2b0862)<br>
- - feat: GitHub Workflows **(4bf4ff2)** [See commit.](https://github.com/luisnquin/meow-app/commit/4bf4ff2115ba4e2803f84ce1644a520ec870189e)<br>
- - feat: CHANGELOG.md **(98103f7)** [See commit.](https://github.com/luisnquin/meow-app/commit/98103f796851352f7499fd1f89d7836dc49a1573)<br>
- - feat: request verification before query in Login handler, new handlers highly related with crimes and models **(65912bb)** [See commit.](https://github.com/luisnquin/meow-app/commit/65912bbb062bb6e869ed3280ff89e4a60df1f392)<br>
- - refactor: fx implementation and other structs **(0cd552b)** [See commit.](https://github.com/luisnquin/meow-app/commit/0cd552b88b900a642dcbc4f41b8a28ababf62527)<br>
- - feat(README.md): project instalation steps **(e7ded7d)** [See commit.](https://github.com/luisnquin/meow-app/commit/e7ded7da585c197179178e3bd5ba3cfa833bb8b3)<br>
- - feat: dependencies injection(complex, pending to fix), docker database volumes and basic auth attemp **(e18047c)** [See commit.](https://github.com/luisnquin/meow-app/commit/e18047cf53a6ed4cfc93bd59ce3e5f3fa3e81050)<br>
- - feat: register and login, users provider, users table in database with schemas **(971bc6e)** [See commit.](https://github.com/luisnquin/meow-app/commit/971bc6e88bb48e2f0aa03d6004aa73db38ab5c16)<br>
- - feat: jwt auth refactorized and CORS middleware **(86782e2)** [See commit.](https://github.com/luisnquin/meow-app/commit/86782e20ac8e56bece0e86969639cd45413b0899)<br>
- - fix(Dockerfile): uncommented openssl installation line and generation of private and public keys **(70cae4c)** [See commit.](https://github.com/luisnquin/meow-app/commit/70cae4c6623405be9068e2acfe209094fad1506d)<br>
- - feat: jwt auth and database local and "in container" configuration **(e219bdf)** [See commit.](https://github.com/luisnquin/meow-app/commit/e219bdf6bd38426f62861f69ecd3a479fc1ca185)<br>
- - feat: .local.env and compose containers working in localhost **(883f89f)** [See commit.](https://github.com/luisnquin/meow-app/commit/883f89fa8b33b7bffc25b480ebaf0ca8447cbff7)<br>
- - feat: server first steps(configuration, database connection), docker project image and compose **(a302331)** [See commit.](https://github.com/luisnquin/meow-app/commit/a302331467168754b1267e04ad7da0200e3590f2)<br>
- - Initial commit **(4f2068c)** [See commit.](https://github.com/luisnquin/meow-app/commit/4f2068caabba824e667e7cd71b52f8dbe78f8c73)<br>
+ - feat: updated CHANGELOG.md **(41a24ee)** [See commit.](https://github.com/luisnquin/gif-app/commit/41a24eee1b830e5f112dddd6b962e39fa03e30bc)<br>
+ - refactor: variable and function names **(806242a)** [See commit.](https://github.com/luisnquin/gif-app/commit/806242a4b381b0850c8c552c61ad1e812a8ed771)<br>
+ - feat: internal handlers(automock & health) work properly **(4d52403)** [See commit.](https://github.com/luisnquin/gif-app/commit/4d5240357de391cfdeec5a8546f6a9104f864656)<br>
+ - feat: Dockerfile updated to give support to Python 3.10.4 **(ce59987)** [See commit.](https://github.com/luisnquin/gif-app/commit/ce59987e9c1804d408cc247b9685e9e5d7c3ee14)<br>
+ - feat: updated CHANGELOG.md **(8a3dd07)** [See commit.](https://github.com/luisnquin/gif-app/commit/8a3dd07369975cb571879c6108d7dbb92498aed9)<br>
+ - feat: Updated Dockerfile and way that server manages containers **(b666143)** [See commit.](https://github.com/luisnquin/gif-app/commit/b66614301cb5cb6a99cfc7b0eff8ed33b31e2c3f)<br>
+ - fix: I forgot I use a framework **(9203e48)** [See commit.](https://github.com/luisnquin/gif-app/commit/9203e48765e2fe739cfe2c135bc3b3fa0a4e668e)<br>
+ - fix: scanning before command startup, wtf **(4765f8e)** [See commit.](https://github.com/luisnquin/gif-app/commit/4765f8ee1bc3106ed9c80c4debd510174dbd6e70)<br>
+ - feat: automock handler at the point of just capturing stdout **(59999a2)** [See commit.](https://github.com/luisnquin/gif-app/commit/59999a2c3d9b5f4490c2cc755e77570d483ae878)<br>
+ - feat: now the python files are executables **(c0b9339)** [See commit.](https://github.com/luisnquin/gif-app/commit/c0b9339f2491ee5c2c992e7e62053f9e3077567f)<br>
+ - fix: little refactor in main pkg **(dfb8798)** [See commit.](https://github.com/luisnquin/gif-app/commit/dfb8798180f1d8f0ed45ab8ba4e47363724a9d9c)<br>
+ - feat: requriments.txt and CHANGELOG.md updated **(f2dde8f)** [See commit.](https://github.com/luisnquin/gif-app/commit/f2dde8f4f2fdb38f438df314369370982dcff501)<br>
+ - feat: user automock with as CLI with Typer **(5652292)** [See commit.](https://github.com/luisnquin/gif-app/commit/5652292a331ff2d021f329d78cd1e6699062a5a9)<br>
+ - feat: added headers to migration tool **(1115b8e)** [See commit.](https://github.com/luisnquin/gif-app/commit/1115b8ebc3d033fd6fffd8e8dfbb918e6dfab39d)<br>
+ - feat: 'make store' -> starts a postgres and redis containers **(c95a590)** [See commit.](https://github.com/luisnquin/gif-app/commit/c95a590ce34bf7694d6d7b60512a974cb5714d04)<br>
+ - fix: 'redis_cache' missing in 'depends_on' of 'app_server' **(0433f0e)** [See commit.](https://github.com/luisnquin/gif-app/commit/0433f0ee7dd46236d33ae9c65520fc7fa09c2664)<br>
+ - feat: redis implementation in docker-compose and store(reorganized) **(e91114c)** [See commit.](https://github.com/luisnquin/gif-app/commit/e91114cbbc2a5f24012ae0d117456906da747df2)<br>
+ - fix: ineffectual .PHONY **(08cda77)** [See commit.](https://github.com/luisnquin/gif-app/commit/08cda77134af7ca41827a64dfd540862d6a494a6)<br>
+ - feat: docs and examples dirs moved to root dir **(80872e6)** [See commit.](https://github.com/luisnquin/gif-app/commit/80872e6a2fc2cd837e4e32134118cbe0a81207a3)<br>
+ - feat: CHANGELOG.md updated and changed pretty output of 'make changelog' **(7b9c203)** [See commit.](https://github.com/luisnquin/gif-app/commit/7b9c203eaa40d9497e123ada7215f6076205dd47)<br>
+ - feat: migration tool working **(0f1029f)** [See commit.](https://github.com/luisnquin/gif-app/commit/0f1029f807c8b9d6fc1faae3681e6fc4698500da)<br>
+ - fix: schemas.sql moved to migration tool folder **(36dafe4)** [See commit.](https://github.com/luisnquin/gif-app/commit/36dafe4b6c9817dd88c4e3799fb0fd89ba1fec59)<br>
+ - fix: other attempt to fix the CI **(4aed9ae)** [See commit.](https://github.com/luisnquin/gif-app/commit/4aed9aef10791037564b3af89b6f26fe374777d4)<br>
+ - fix: Dockerfile broken(solved) **(58162f4)** [See commit.](https://github.com/luisnquin/gif-app/commit/58162f4c352dfac844cc71d475534a12b5657bb2)<br>
+ - feat: dockerignore file **(0fce6e6)** [See commit.](https://github.com/luisnquin/gif-app/commit/0fce6e60fb1952275b3a8c8cced07cf816b19c49)<br>
+ - feat: CHANGELOG.md updated **(9416838)** [See commit.](https://github.com/luisnquin/gif-app/commit/9416838c7d4949da8b63f62c30d4e96fc8b35071)<br>
+ - fix(tools.migration): type config object in main function **(9519dca)** [See commit.](https://github.com/luisnquin/gif-app/commit/9519dcae3eb3545720aabab168ef4bb57bf71382)<br>
+ - feat: requirements.txt updated **(7a8258b)** [See commit.](https://github.com/luisnquin/gif-app/commit/7a8258b5585586123f5242813e3a4f8300194df8)<br>
+ - feat: CHANGELOG.md updated **(6529d41)** [See commit.](https://github.com/luisnquin/gif-app/commit/6529d41762b73e682d759900866068dbc4b9d2d2)<br>
+ - feat: configuration load and connected database in migrations tool **(2af26bd)** [See commit.](https://github.com/luisnquin/gif-app/commit/2af26bd61047222c060b9c2b715a1dbdd62e8dad)<br>
+ - fix: modified json tag to apiKey to Internal struct in configuration pkg **(81f10e1)** [See commit.](https://github.com/luisnquin/gif-app/commit/81f10e197a3ba2b15fda404f7c70dc8ca6305d24)<br>
+ - fix: 'apikey' field to 'apiKey', camelcase as standard in config-server.json **(3b62640)** [See commit.](https://github.com/luisnquin/gif-app/commit/3b62640c10bcde10d4ec2fc466f20b57d2b1bf41)<br>
+ - feat: nix file, to start nix-shell **(4455127)** [See commit.](https://github.com/luisnquin/gif-app/commit/445512742f1aba6b18de495b658d7c312bd38191)<br>
+ - fix: another attempt to fix the github CI **(d6b969a)** [See commit.](https://github.com/luisnquin/gif-app/commit/d6b969a8d8c7c201cfc968d9a5782d14d4df89c3)<br>
+ - feat: '/register' route renamed to '/sigup', fixed premature context timeout in Querier methods, uber fx removed, new --port flag **(6ee4c18)** [See commit.](https://github.com/luisnquin/gif-app/commit/6ee4c18134e6c8b3483ffd3804eb5289e1b310d0)<br>
+ - fix(golangci-linter): typecheck disable **(8b0612a)** [See commit.](https://github.com/luisnquin/gif-app/commit/8b0612a837f73fbc00f7572d15789cb4a825e4e4)<br>
+ - feat: logout handler added **(4b950c4)** [See commit.](https://github.com/luisnquin/gif-app/commit/4b950c4ab119ee612a39cec44e14f23e56d9fa1a)<br>
+ - fix: configuration file path updated **(1b360f8)** [See commit.](https://github.com/luisnquin/gif-app/commit/1b360f8a096a6922516524bd36fc40020357eb63)<br>
+ - fix: useless go routine in server startup removed **(2e423ea)** [See commit.](https://github.com/luisnquin/gif-app/commit/2e423eaf37ffc8cb775d0f61ab5960e58c04e17c)<br>
+ - feat: CHANGELOG.md updated **(fae9fde)** [See commit.](https://github.com/luisnquin/gif-app/commit/fae9fde6b58c1d2ce7f5129b65944bb301a56d34)<br>
+ - fix: attemp to fix failed job **(4396465)** [See commit.](https://github.com/luisnquin/gif-app/commit/439646598190a55751bfd27ac2647d57b53cb04a)<br>
+ - feat: automock tool, first step **(5c8ee46)** [See commit.](https://github.com/luisnquin/gif-app/commit/5c8ee4625e9342afe6c5c1d1c8e0d82096556de7)<br>
+ - feat: virtualenv stuff added to Makefile as 'make env' and requirements.txt generated **(8796d9c)** [See commit.](https://github.com/luisnquin/gif-app/commit/8796d9c231cfe5b11fda99b1ed66454f69992177)<br>
+ - feat: 'make changelog' added to Makefile, CHANGELOG.md updated and client.json with server.json, deleted **(99b004b)** [See commit.](https://github.com/luisnquin/gif-app/commit/99b004b74cc462efd1f6756602a8da857d5793ca)<br>
+ - fix: server.json and client.json now with 'config-' as prefix **(50caf6f)** [See commit.](https://github.com/luisnquin/gif-app/commit/50caf6f75d8480689ecdb830f293cdc9f4471ab5)<br>
+ - docs: API Docs **(1460d94)** [See commit.](https://github.com/luisnquin/gif-app/commit/1460d9440b9020c95e1da2fcf9fe45f47b908e80)<br>
+ - fix: unnecessary return in handlers mounting **(e7da909)** [See commit.](https://github.com/luisnquin/gif-app/commit/e7da909e217d297a2167704277f60a537841c784)<br>
+ - feat: updated CHANGELOG.md **(f61d52d)** [See commit.](https://github.com/luisnquin/gif-app/commit/f61d52d7853055b1419f768e50a1890f8f2b0862)<br>
+ - feat: GitHub Workflows **(4bf4ff2)** [See commit.](https://github.com/luisnquin/gif-app/commit/4bf4ff2115ba4e2803f84ce1644a520ec870189e)<br>
+ - feat: CHANGELOG.md **(98103f7)** [See commit.](https://github.com/luisnquin/gif-app/commit/98103f796851352f7499fd1f89d7836dc49a1573)<br>
+ - feat: request verification before query in Login handler, new handlers highly related with crimes and models **(65912bb)** [See commit.](https://github.com/luisnquin/gif-app/commit/65912bbb062bb6e869ed3280ff89e4a60df1f392)<br>
+ - refactor: fx implementation and other structs **(0cd552b)** [See commit.](https://github.com/luisnquin/gif-app/commit/0cd552b88b900a642dcbc4f41b8a28ababf62527)<br>
+ - feat(README.md): project instalation steps **(e7ded7d)** [See commit.](https://github.com/luisnquin/gif-app/commit/e7ded7da585c197179178e3bd5ba3cfa833bb8b3)<br>
+ - feat: dependencies injection(complex, pending to fix), docker database volumes and basic auth attemp **(e18047c)** [See commit.](https://github.com/luisnquin/gif-app/commit/e18047cf53a6ed4cfc93bd59ce3e5f3fa3e81050)<br>
+ - feat: register and login, users provider, users table in database with schemas **(971bc6e)** [See commit.](https://github.com/luisnquin/gif-app/commit/971bc6e88bb48e2f0aa03d6004aa73db38ab5c16)<br>
+ - feat: jwt auth refactorized and CORS middleware **(86782e2)** [See commit.](https://github.com/luisnquin/gif-app/commit/86782e20ac8e56bece0e86969639cd45413b0899)<br>
+ - fix(Dockerfile): uncommented openssl installation line and generation of private and public keys **(70cae4c)** [See commit.](https://github.com/luisnquin/gif-app/commit/70cae4c6623405be9068e2acfe209094fad1506d)<br>
+ - feat: jwt auth and database local and "in container" configuration **(e219bdf)** [See commit.](https://github.com/luisnquin/gif-app/commit/e219bdf6bd38426f62861f69ecd3a479fc1ca185)<br>
+ - feat: .local.env and compose containers working in localhost **(883f89f)** [See commit.](https://github.com/luisnquin/gif-app/commit/883f89fa8b33b7bffc25b480ebaf0ca8447cbff7)<br>
+ - feat: server first steps(configuration, database connection), docker project image and compose **(a302331)** [See commit.](https://github.com/luisnquin/gif-app/commit/a302331467168754b1267e04ad7da0200e3590f2)<br>
+ - Initial commit **(4f2068c)** [See commit.](https://github.com/luisnquin/gif-app/commit/4f2068caabba824e667e7cd71b52f8dbe78f8c73)<br>

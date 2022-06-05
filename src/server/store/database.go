@@ -9,8 +9,8 @@ import (
 
 	// PostgreSQL driver.
 	_ "github.com/lib/pq"
-	"github.com/luisnquin/meow-app/src/server/config"
-	"github.com/luisnquin/meow-app/src/server/utils"
+	"github.com/luisnquin/gif-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/utils"
 )
 
 var ErrFailedToSaveInDB = errors.New("failed to save in DB")

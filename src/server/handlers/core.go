@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/meow-app/src/server/auth"
-	"github.com/luisnquin/meow-app/src/server/config"
-	"github.com/luisnquin/meow-app/src/server/repository"
-	"github.com/luisnquin/meow-app/src/server/store"
+	"github.com/luisnquin/gif-app/src/server/auth"
+	"github.com/luisnquin/gif-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/repository"
+	"github.com/luisnquin/gif-app/src/server/store"
 )
 
 type HandlerHead struct {
