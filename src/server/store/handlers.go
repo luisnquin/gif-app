@@ -26,9 +26,11 @@ func HealthHandler(db Querier) echo.HandlerFunc {
 func AutoMockHandler(db Querier) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// TODO: Let handle tool
-		cmd := exec.CommandContext(c.Request().Context(), "./tools/automock/main.py", "--stdout", "--length=10")
+		cmd := exec.CommandContext(c.Request().Context(), "python3", "./tools/automock/main.py", "--stdout", "--length=10")
 		pipe, err := cmd.StdoutPipe()
 		if err != nil {
+			log.Error(err)
+
 			return echo.ErrInternalServerError
 		}
 
@@ -36,6 +38,8 @@ func AutoMockHandler(db Querier) echo.HandlerFunc {
 
 		err = cmd.Start()
 		if err != nil {
+			log.Error(err)
+
 			return echo.ErrInternalServerError
 		}
 
@@ -48,6 +52,8 @@ func AutoMockHandler(db Querier) echo.HandlerFunc {
 
 		err = cmd.Wait()
 		if err != nil {
+			log.Error(err)
+
 			return echo.ErrInternalServerError
 		}
 

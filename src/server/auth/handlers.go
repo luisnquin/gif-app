@@ -68,7 +68,7 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 	}
 }
 
-func (a *Auth) SigInHandler() echo.HandlerFunc {
+func (a *Auth) SignUpHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var user models.User
 

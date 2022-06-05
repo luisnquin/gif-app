@@ -1,4 +1,5 @@
-# Meow app - Changelog
+# Gif app - Changelog
+ - feat: Decision taken, meow-app renamed to gif-app and added string to MD5 hash function to rename gifs **(955abc1)** [See commit.](https://github.com/luisnquin/gif-app/commit/955abc11d843352f044e08f8de6526b0e40c44dd)<br>
  - feat: updated CHANGELOG.md **(41a24ee)** [See commit.](https://github.com/luisnquin/gif-app/commit/41a24eee1b830e5f112dddd6b962e39fa03e30bc)<br>
  - refactor: variable and function names **(806242a)** [See commit.](https://github.com/luisnquin/gif-app/commit/806242a4b381b0850c8c552c61ad1e812a8ed771)<br>
  - feat: internal handlers(automock & health) work properly **(4d52403)** [See commit.](https://github.com/luisnquin/gif-app/commit/4d5240357de391cfdeec5a8546f6a9104f864656)<br>

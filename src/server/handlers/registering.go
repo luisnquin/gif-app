@@ -6,7 +6,7 @@ import (
 )
 
 func (h *HandlerHead) registerAuthHandlers() {
-	h.app.POST("/signup", h.auth.SigInHandler())
+	h.app.POST("/signup", h.auth.SignUpHandler())
 	h.app.POST("/logout", h.auth.LogoutHandler())
 	h.app.POST("/login", h.auth.LoginHandler())
 }

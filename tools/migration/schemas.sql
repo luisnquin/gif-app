@@ -3,7 +3,7 @@ CREATE TABLE users(
     username VARCHAR(25) UNIQUE NOT NULL,
     firstname VARCHAR(40) NOT NULL,
     lastname VARCHAR(40) NOT NULL,
-    email VARCHAR(40) NOT NULL,
+    email VARCHAR(40) UNIQUE NOT NULL,
     password VARCHAR(60) NOT NULL,
     role VARCHAR(20) NOT NULL DEFAULT 'USER',
     birthday TIMESTAMP,
