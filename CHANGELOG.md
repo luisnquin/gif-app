@@ -1,4 +1,7 @@
 # Gif app - Changelog
+ - feat: graceful shutdown, health handlers now also verifies the redis connection, schemas.sql moved to ./src/database folder **(63d5aac)** [See commit.](https://github.com/luisnquin/gif-app/commit/63d5aacf18b298fdf591b18f7f6c7315036c8c60)<br>
+ - feat: README.md updated **(4616891)** [See commit.](https://github.com/luisnquin/gif-app/commit/46168916e61d983b07685c2241bb673dc0383cc3)<br>
+ - fix: renaming a project could be deadly, fixed with py command in AutomockHandler **(3295e89)** [See commit.](https://github.com/luisnquin/gif-app/commit/3295e89a1fc738b5ca2aba1a14b925ab9b395761)<br>
  - feat: Decision taken, meow-app renamed to gif-app and added string to MD5 hash function to rename gifs **(955abc1)** [See commit.](https://github.com/luisnquin/gif-app/commit/955abc11d843352f044e08f8de6526b0e40c44dd)<br>
  - feat: updated CHANGELOG.md **(41a24ee)** [See commit.](https://github.com/luisnquin/gif-app/commit/41a24eee1b830e5f112dddd6b962e39fa03e30bc)<br>
  - refactor: variable and function names **(806242a)** [See commit.](https://github.com/luisnquin/gif-app/commit/806242a4b381b0850c8c552c61ad1e812a8ed771)<br>

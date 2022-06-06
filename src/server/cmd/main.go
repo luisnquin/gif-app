@@ -7,7 +7,6 @@ import (
 	"github.com/luisnquin/gif-app/src/server/config"
 	"github.com/luisnquin/gif-app/src/server/core"
 	"github.com/luisnquin/gif-app/src/server/handlers"
-	"github.com/luisnquin/gif-app/src/server/middleware"
 	"github.com/luisnquin/gif-app/src/server/repository"
 	"github.com/luisnquin/gif-app/src/server/store"
 )
@@ -23,7 +22,7 @@ func main() {
 	db, cache := store.New(config)
 	provider := repository.New(db)
 
-	middleware.Apply(app)
+	core.ApplyMainMiddlewares(app)
 	handlers.New(app, config, provider, db, cache).Mount()
 
 	startup, wait, shutdown := core.GracefulShutdown(app)
