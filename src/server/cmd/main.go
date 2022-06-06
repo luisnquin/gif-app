@@ -23,6 +23,8 @@ func main() {
 	provider := repository.New(db)
 
 	core.ApplyMainMiddlewares(app)
+	app.Use(core.Docs())
+
 	handlers.New(app, config, provider, db, cache).Mount()
 
 	startup, wait, shutdown := core.GracefulShutdown(app)

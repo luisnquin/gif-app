@@ -27,6 +27,7 @@ func (h *HandlerHead) registerHandlers() {
 	h.app.GET("/docs", nil)
 
 	h.app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
+
 	/*
 		/upload
 		/post/<hash>
