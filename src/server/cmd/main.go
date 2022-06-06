@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/gif-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/core"
 	"github.com/luisnquin/gif-app/src/server/handlers"
 	"github.com/luisnquin/gif-app/src/server/middleware"
 	"github.com/luisnquin/gif-app/src/server/repository"
@@ -19,11 +20,15 @@ func main() {
 	flag.Parse()
 
 	app := echo.New()
-	db, _ := store.New(config)
+	db, cache := store.New(config)
 	provider := repository.New(db)
 
 	middleware.Apply(app)
-	handlers.New(app, config, provider, db).Mount()
+	handlers.New(app, config, provider, db, cache).Mount()
 
-	app.Logger.Fatal(app.Start(*port))
+	startup, wait, shutdown := core.GracefulShutdown(app)
+	go startup(*port)
+	defer shutdown()
+
+	wait()
 }

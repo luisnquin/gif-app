@@ -6,20 +6,28 @@ import (
 	"net/http"
 	"os/exec"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/gif-app/src/server/log"
 )
 
-func HealthHandler(db Querier) echo.HandlerFunc {
+func HealthHandler(db Querier, cache *redis.Client) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		err := db.Ping()
+		err := cache.Ping(c.Request().Context()).Err()
 		if err != nil {
 			log.Error(err)
 
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
-		return c.String(http.StatusOK, "database connection alive")
+		err = db.Ping()
+		if err != nil {
+			log.Error(err)
+
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
+
+		return c.String(http.StatusOK, "database and cache connection alive\n")
 	}
 }
 

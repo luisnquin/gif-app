@@ -12,7 +12,7 @@ func (h *HandlerHead) registerAuthHandlers() {
 }
 
 func (h *HandlerHead) registerInternalHandlers() {
-	h.app.GET("/health", store.HealthHandler(h.db))
+	h.app.GET("/health", store.HealthHandler(h.db, h.cache))
 	h.app.POST("/automock", store.AutoMockHandler(h.db))
 }
 
@@ -26,16 +26,39 @@ func (h *HandlerHead) registerHandlers() {
 	// redoc
 	h.app.GET("/docs", nil)
 
-	// certifications
-	h.app.Group("/leaks")
-	// posts, history
 	h.app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
-	// new, :id, latest
-	h.app.Group("/reports", middleware.JWTWithConfig(h.auth.JWTConfig))
-	// :id - oficial
-	h.app.Group("/oficial/news", middleware.JWTWithConfig(h.auth.JWTConfig))
-	// :id - secret
-	h.app.Group("/secret/news", middleware.JWTWithConfig(h.auth.JWTConfig))
-	// :id - possibly
-	h.app.Group("/post", middleware.JWTWithConfig(h.auth.JWTConfig))
+	/*
+		/upload
+		/post/<hash>
+	*/
+
 }
+
+/*
+	- The profile will be created at the same time the user is created
+
+	GET .../:username/profile
+	UPDATE .../:username/profile
+	DELETE .../:username/profile (with user, the post's are not deleted, just without owner)
+
+	GET .../:username/gifs
+	GET .../:username/gif/:hash
+	POST .../:username/gif
+	PUT .../:username/gif/:hash
+	DELETE .../:username/gif/:hash
+	DELETE .../:username/gifs (Menu, request body)
+
+	Additions:
+	 - Block
+
+	GET .../gifs (query params, recently<bool>, month<int> and/or year<int>)
+	GET .../gifs/stats
+	GET .../gif/:hash
+	POST .../gif/:hash (like and comments)
+	POST .../gif/:hash (report)
+
+	GET .../reports (console)
+	POST .../reports/:username
+
+	SPONSOR
+*/
