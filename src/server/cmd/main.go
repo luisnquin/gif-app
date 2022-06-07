@@ -10,7 +10,6 @@ import (
 	"github.com/luisnquin/gif-app/src/server/handlers"
 	"github.com/luisnquin/gif-app/src/server/repository"
 	"github.com/luisnquin/gif-app/src/server/store"
-	echoredoc "github.com/mvrilo/go-redoc/echo"
 )
 
 type host struct {
@@ -34,9 +33,9 @@ func main() {
 	// Hosts
 	api, internal, app := echo.New(), echo.New(), echo.New()
 
-	core.ApplyMiddlewares(api, echoredoc.New(config.Docs))
-
-	handlers.New(app, config, provider, db, cache).Mount()
+	head := handlers.New(config, provider, db, cache)
+	head.InternalMount(internal)
+	head.APIMount(api)
 
 	hosts["internal.localhost"+port] = &host{internal}
 	hosts["api.localhost"+port] = &host{api}
@@ -47,7 +46,6 @@ func main() {
 
 	server.Any("/*", func(c echo.Context) error {
 		host := hosts[c.Request().Host]
-
 		if host == nil {
 			return echo.ErrNotFound
 		}

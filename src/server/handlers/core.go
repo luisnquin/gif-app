@@ -1,3 +1,4 @@
+//nolint:typecheck
 package handlers
 
 import (
@@ -14,11 +15,10 @@ type HandlerHead struct {
 	provider *repository.Provider
 	db       store.Querier
 	cache    *redis.Client
-	app      *echo.Echo
 	auth     *auth.Auth
 }
 
-func New(app *echo.Echo, config *config.Configuration, provider *repository.Provider, db store.Querier, cache *redis.Client) *HandlerHead {
+func New(config *config.Configuration, provider *repository.Provider, db store.Querier, cache *redis.Client) *HandlerHead {
 	auth := auth.New(config, provider)
 
 	return &HandlerHead{
@@ -26,13 +26,16 @@ func New(app *echo.Echo, config *config.Configuration, provider *repository.Prov
 		config:   config,
 		cache:    cache,
 		auth:     auth,
-		app:      app,
 		db:       db,
 	}
 }
 
-func (h *HandlerHead) Mount() {
-	h.registerAuthHandlers()
-	h.registerInternalHandlers()
-	h.registerHandlers()
+func (h *HandlerHead) APIMount(api *echo.Echo) {
+	h.registerAuthHandlers(api)
+	h.registerAPIHandlers(api)
+}
+
+func (h *HandlerHead) InternalMount(internal *echo.Echo) {
+	h.registerInternalHandlers(internal)
+	h.registerAuthHandlers(internal)
 }

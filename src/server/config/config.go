@@ -25,12 +25,11 @@ func Load() *Configuration {
 	return &config
 }
 
-//nolint:typecheck
 type Configuration struct {
-	Internal internal    `json:"internal"`
-	Database database    `json:"database"`
-	Cache    cache       `json:"cache"`
-	Docs     redoc.Redoc `json:"docs"`
+	Internal internal `json:"internal"`
+	Database database `json:"database"`
+	Cache    cache    `json:"cache"`
+	Docs     docs     `json:"docs"`
 }
 
 type internal struct {
@@ -49,4 +48,10 @@ type database struct {
 type cache struct {
 	LocalAddr     string `json:"localAddr"`
 	ContainerAddr string `json:"containerAddr"`
+}
+
+//nolint:typecheck
+type docs struct {
+	Path  string      `json:"path"`
+	Redoc redoc.Redoc `json:"redoc"`
 }

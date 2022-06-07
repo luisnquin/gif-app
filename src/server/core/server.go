@@ -34,7 +34,7 @@ func GracefulShutdown(app *echo.Echo) (startup func(string), wait func(), shutdo
 }
 
 func ApplyMiddlewares(app *echo.Echo, ms ...echo.MiddlewareFunc) {
-	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
+	// app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
 	app.Use(middleware.LoggerWithConfig(middleware.DefaultLoggerConfig))
 	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowHeaders: []string{"api-key", "Authorization"},

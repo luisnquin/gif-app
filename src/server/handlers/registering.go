@@ -1,38 +1,40 @@
+//nolint:typecheck
 package handlers
 
 import (
+	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/gif-app/src/server/store"
 )
 
-func (h *HandlerHead) registerAuthHandlers() {
-	h.app.POST("/signup", h.auth.SignUpHandler())
-	h.app.POST("/logout", h.auth.LogoutHandler())
-	h.app.POST("/login", h.auth.LoginHandler())
+func (h *HandlerHead) registerAuthHandlers(app *echo.Echo) {
+	app.POST("/signup", h.auth.SignUpHandler())
+	app.POST("/logout", h.auth.LogoutHandler())
+	app.POST("/login", h.auth.LoginHandler())
 }
 
-func (h *HandlerHead) registerInternalHandlers() {
-	h.app.GET("/health", store.HealthHandler(h.db, h.cache))
-	h.app.POST("/automock", store.AutoMockHandler(h.db))
+func (h *HandlerHead) registerInternalHandlers(app *echo.Echo) {
+	app.GET("/health", store.HealthHandler(h.db, h.cache))
+	app.POST("/automock", store.AutoMockHandler(h.db))
 }
 
-func (h *HandlerHead) registerHandlers() {
-	h.app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
+func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
+	app.GET("/docs", h.serveDocs())
+	app.File("/docs/openapi.yaml", h.config.Docs.Path)
+
+	app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
 
 	// rewards
-	h.app.GET("/rewards", nil)
+	app.GET("/rewards", nil)
 	// info
-	h.app.GET("/ranges", nil)
-	// redoc
-	h.app.GET("/docs", nil)
+	app.GET("/ranges", nil)
 
-	h.app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
+	// app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
 
 	/*
 		/upload
 		/post/<hash>
 	*/
-
 }
 
 /*

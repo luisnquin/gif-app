@@ -1,3 +1,4 @@
+//nolint:typecheck
 package auth
 
 import (
@@ -120,7 +121,7 @@ func (a *Auth) LogoutHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, err := c.Cookie("token")
 		if err != nil {
-			if errors.Is(err, echo.ErrCookieNotFound) {
+			if errors.Is(err, echo.ErrCookieNotFound) || errors.Is(err, http.ErrNoCookie) {
 				return echo.ErrBadRequest
 			}
 

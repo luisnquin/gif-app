@@ -1,3 +1,4 @@
+//nolint:typecheck
 package handlers
 
 import (
@@ -24,5 +25,16 @@ func BHandler() echo.HandlerFunc {
 			"email":    user.Email,
 			"username": user.Username,
 		})
+	}
+}
+
+func (h *HandlerHead) serveDocs() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		content, err := h.config.Docs.Redoc.Body()
+		if err != nil {
+			return echo.ErrInternalServerError
+		}
+
+		return c.HTML(http.StatusOK, string(content))
 	}
 }
