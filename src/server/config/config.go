@@ -2,7 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"os"
 	"time"
 )
@@ -15,15 +14,9 @@ func Load() *Configuration {
 
 	defer file.Close()
 
-	content, err := ioutil.ReadAll(file)
-	if err != nil {
-		panic(err)
-	}
-
 	var config Configuration
 
-	err = json.Unmarshal(content, &config)
-	if err != nil {
+	if err = json.NewDecoder(file).Decode(&config); err != nil {
 		panic(err)
 	}
 

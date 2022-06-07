@@ -1,3 +1,4 @@
+//nolint:typecheck
 package core
 
 import (
@@ -32,7 +33,7 @@ func GracefulShutdown(app *echo.Echo) (startup func(string), wait func(), shutdo
 	return startup, wait, shutdown
 }
 
-func ApplyMainMiddlewares(app *echo.Echo) {
+func ApplyMiddlewares(app *echo.Echo, ms ...echo.MiddlewareFunc) {
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
 	app.Use(middleware.LoggerWithConfig(middleware.DefaultLoggerConfig))
 	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -40,4 +41,8 @@ func ApplyMainMiddlewares(app *echo.Echo) {
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete},
 		AllowOrigins: []string{"*"},
 	}))
+
+	for _, m := range ms {
+		app.Use(m)
+	}
 }
