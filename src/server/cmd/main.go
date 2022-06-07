@@ -12,12 +12,8 @@ import (
 	"github.com/luisnquin/gif-app/src/server/store"
 )
 
-type host struct {
-	*echo.Echo
-}
-
 var (
-	hosts = make(map[string]*host)
+	hosts = make(map[string]*echo.Echo)
 	port  string
 )
 
@@ -37,9 +33,9 @@ func main() {
 	head.InternalMount(internal)
 	head.APIMount(api)
 
-	hosts["internal.localhost"+port] = &host{internal}
-	hosts["api.localhost"+port] = &host{api}
-	hosts["localhost"+port] = &host{app}
+	hosts["internal.localhost"+port] = internal
+	hosts["api.localhost"+port] = api
+	hosts["localhost"+port] = app
 
 	server := echo.New()
 	core.ApplyMiddlewares(server)
@@ -50,7 +46,7 @@ func main() {
 			return echo.ErrNotFound
 		}
 
-		host.Echo.ServeHTTP(c.Response(), c.Request())
+		host.ServeHTTP(c.Response(), c.Request())
 
 		return nil
 	})
