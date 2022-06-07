@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"os"
 	"time"
+
+	"github.com/mvrilo/go-redoc"
 )
 
 func Load() *Configuration {
@@ -23,10 +25,12 @@ func Load() *Configuration {
 	return &config
 }
 
+//nolint:typecheck
 type Configuration struct {
-	Internal internal `json:"internal"`
-	Database database `json:"database"`
-	Cache    cache    `json:"cache"`
+	Internal internal    `json:"internal"`
+	Database database    `json:"database"`
+	Cache    cache       `json:"cache"`
+	Docs     redoc.Redoc `json:"docs"`
 }
 
 type internal struct {

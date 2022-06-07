@@ -13,5 +13,12 @@
 	"cache": {
 		"localAddr": "localhost:5820",
 		"containerAddr": "redis_cache:6379"
+	},
+	"docs": {
+		"Title": "API Docs",
+		"Description": "See API Documentation",
+		"DocsPath": "/docs",
+		"SpecPath": "/docs/openapi.yaml",
+		"SpecFile": "./docs/openapi.yaml"
 	}
 }
