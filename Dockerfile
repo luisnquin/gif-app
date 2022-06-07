@@ -29,6 +29,7 @@ COPY ./go.sum ./${project_name}
 COPY ./private.rsa.key .
 COPY ./public.rsa.key .
 COPY ./tools ./tools
+COPY ./docs ./docs
 
 COPY ./requirements.txt .
 
