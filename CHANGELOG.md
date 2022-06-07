@@ -1,4 +1,10 @@
 # Gif app - Changelog
+ - feat(Dockerfile): added /docs directory **(933f9f3)** [See commit.](https://github.com/luisnquin/gif-app/commit/933f9f382e456bb241f8235e7b1c6bb9f9f4361f)<br>
+ - fix: redoc pkg implementation on an endpoint, replacing middleware as an option **(9b9a7c0)** [See commit.](https://github.com/luisnquin/gif-app/commit/9b9a7c08f7e25c9fc4dfe1accf7469480156c83c)<br>
+ - feat: redoc configuration in config-server.json, ready to be used directly **(90a6a40)** [See commit.](https://github.com/luisnquin/gif-app/commit/90a6a4075f2b1e6089eb54eb2c1afadcb69d5e18)<br>
+ - feat: submains added(internal, api, base) **(5b26e99)** [See commit.](https://github.com/luisnquin/gif-app/commit/5b26e99627417143bd57ed3dbedbc3f22c0e2a22)<br>
+ - feat: RedocCLI API Documentation at /docs **(7f55399)** [See commit.](https://github.com/luisnquin/gif-app/commit/7f55399a4a048e6ce4284dfcbcfd9494b0911105)<br>
+ - feat: middleware moved to core pkg and CHANGELOG.md updated **(dccdb9a)** [See commit.](https://github.com/luisnquin/gif-app/commit/dccdb9ae60ef8f091e04b694f93b586b884835ae)<br>
  - feat: graceful shutdown, health handlers now also verifies the redis connection, schemas.sql moved to ./src/database folder **(63d5aac)** [See commit.](https://github.com/luisnquin/gif-app/commit/63d5aacf18b298fdf591b18f7f6c7315036c8c60)<br>
  - feat: README.md updated **(4616891)** [See commit.](https://github.com/luisnquin/gif-app/commit/46168916e61d983b07685c2241bb673dc0383cc3)<br>
  - fix: renaming a project could be deadly, fixed with py command in AutomockHandler **(3295e89)** [See commit.](https://github.com/luisnquin/gif-app/commit/3295e89a1fc738b5ca2aba1a14b925ab9b395761)<br>
