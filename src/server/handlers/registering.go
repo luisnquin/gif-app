@@ -28,37 +28,27 @@ func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
 
 	// app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
 
-	/*
-		/upload
-		/post/<hash>
-	*/
+	app.GET("/:username/profile", nil)
+	app.PUT("/:username/profile", nil)
+	app.DELETE("/:username/profile", nil)
+
+	app.GET("/:username/gifs", nil)
+	app.GET("/:username/gifs/:hash", nil)
+	app.POST("/:username/gif", nil)
+	app.PUT("/:username/gifs/:hash", nil)
+	app.DELETE("/:username/gifs/:hash", nil)
+	app.DELETE("/:username/gifs", nil) // request body (Menu)
+
+	app.GET("/stats", nil)
+
+	app.GET("/gifs", nil)
+	app.GET("/gifs/search", nil)
+	app.GET("/gifs/:hash", nil)
+	app.POST("/gif", nil)
+	app.POST("/gifs/:hash", nil) // comments, etc
+	app.POST("/gifs/:hash/report", nil)
+
+	// Console
+	app.GET("/reports", nil)
+	app.POST("/reports/:hash", nil)
 }
-
-/*
-	- The profile will be created at the same time the user is created
-
-	GET .../:username/profile
-	UPDATE .../:username/profile
-	DELETE .../:username/profile (with user, the post's are not deleted, just without owner)
-
-	GET .../:username/gifs
-	GET .../:username/gif/:hash
-	POST .../:username/gif
-	PUT .../:username/gif/:hash
-	DELETE .../:username/gif/:hash
-	DELETE .../:username/gifs (Menu, request body)
-
-	Additions:
-	 - Block
-
-	GET .../gifs (query params, recently<bool>, month<int> and/or year<int>)
-	GET .../gifs/stats
-	GET .../gif/:hash
-	POST .../gif/:hash (like and comments)
-	POST .../gif/:hash (report)
-
-	GET .../reports (console)
-	POST .../reports/:username
-
-	SPONSOR
-*/
