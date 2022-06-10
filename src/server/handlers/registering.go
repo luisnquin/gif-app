@@ -26,11 +26,6 @@ func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
 
 	app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
 
-	// rewards
-	app.GET("/rewards", nil)
-	// info
-	app.GET("/ranges", nil)
-
 	// app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
 
 	/*
