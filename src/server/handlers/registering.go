@@ -26,8 +26,6 @@ func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
 
 	app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
 
-	// app.Group("/:username", middleware.JWTWithConfig(h.auth.JWTConfig))
-
 	app.GET("/:username/profile", nil)
 	app.PUT("/:username/profile", nil)
 	app.DELETE("/:username/profile", nil)
