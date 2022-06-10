@@ -15,13 +15,11 @@
 		"containerAddr": "redis_cache:6379"
 	},
 	"docs": {
-		"path": "./docs/openapi.yaml",
-		"redoc": {
-			"Title": "API Docs",
-			"Description": "See API Documentation",
-			"DocsPath": "/docs",
-			"SpecPath": "/docs/openapi.yaml",
-			"SpecFile": "./docs/openapi.yaml"
-		}
+		"title": "API Docs",
+		"description": "See API Documentation",
+		"docsPath": "/docs",
+		"specPath": "/docs/openapi.yaml",
+		"specFile": "./docs/openapi.yaml",
+		"faviconPath": "./docs/favicon.ico"
 	}
 }

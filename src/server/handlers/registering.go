@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/gif-app/src/server/store"
+	echoredoc "github.com/luisnquin/go-redoc/echo"
 )
 
 func (h *HandlerHead) registerAuthHandlers(app *echo.Echo) {
@@ -19,8 +20,9 @@ func (h *HandlerHead) registerInternalHandlers(app *echo.Echo) {
 }
 
 func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
-	app.GET("/docs", h.serveDocs())
-	app.File("/docs/openapi.yaml", h.config.Docs.Path)
+	app.GET("/docs", echoredoc.EchoHandler(h.config.Docs))
+	app.File("/docs/openapi.yaml", h.config.Docs.SpecFile)
+	app.File("/docs/favicon.png", "./docs/favicon.png")
 
 	app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
 
