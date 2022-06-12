@@ -27,7 +27,7 @@ jobs:
             - name: Tests
               run: go test -v ./...
 
-            - name: auto-gofmt
-              uses: iamnotaturtle/auto-gofmt@v2.0.0
-              with:
-                  commit_message: Go code formatted
+            # - name: auto-gofmt
+            #   uses: iamnotaturtle/auto-gofmt@v2.0.0
+            #   with:
+            #       commit_message: Go code formatted
