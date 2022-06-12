@@ -1,0 +1,11 @@
+version: '1'
+packages:
+    - name: 'sqlc'
+      path: './src/server/sqlc'
+      schema: './sql/schemas.sql'
+      queries: './sql/queries.sql'
+      emit_json_tags: true
+      emit_db_tags: true
+      emit_prepared_queries: false
+      emit_interface: false
+      json_tags_case_style: camel

@@ -11,3 +11,10 @@ CREATE TABLE users(
     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     CONSTRAINT smart_update CHECK(updated_at >= created_at)
 );
+
+CREATE TABLE profiles(
+    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    last_connection TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
