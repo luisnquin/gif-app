@@ -13,6 +13,7 @@ class Database(BaseModel):
     time_out: int = Field(..., alias='timeOut')
     in_local_dsn: str = Field(..., alias='inLocalDsn')
     in_container_dsn: str = Field(..., alias='inContainerDsn')
+    schemas_path: str = Field(..., alias='schemasPath')
 
 
 class Configuration(BaseModel):

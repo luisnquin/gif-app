@@ -16,8 +16,8 @@ def load_configuration() -> Configuration:
         return config
 
 
-def read_migration_file() -> List[str]:
-    with open(file="./schemas.sql", mode="r") as file:
+def read_migration_file(config: Configuration) -> List[str]:
+    with open(file=config.database.schemas_path, mode="r") as file:
         statements: List[str] = []
         statement: str = ""
 
@@ -25,16 +25,17 @@ def read_migration_file() -> List[str]:
             line = line.replace("\n", "")
             statement += line
 
-            if line[-1] == ";":
+            if len(line) > 0 and line[-1] == ';':
                 statements.append(statement)
-                statement = ""
+                statement = ''
 
         return statements
 
 
 def main() -> None:
-    statements: List[str] = read_migration_file()
     config: object = load_configuration()
+
+    statements: List[str] = read_migration_file(config)
 
     with connect(dsn=config.database.in_local_dsn) as connection:
         with connection.cursor() as cursor:
