@@ -15,3 +15,11 @@ repos:
       hooks:
           - id: check-json
           - id: check-yaml
+    - repo: local
+      hooks:
+        - id: changelog
+          name: changelog
+          entry: bash -c 'make changelog'
+          language: system
+          pass_filenames: false
+          always_run: true

@@ -1,4 +1,13 @@
 # Gif app - Changelog
+ - feat: pre-commit configuration file **(9258318)** [See commit.](https://github.com/luisnquin/gif-app/commit/9258318130842304f9c0c220d97e9559dae3c03e)<br>
+ - feat: unnecessary "apply middlewares" function has been removed **(cc8df50)** [See commit.](https://github.com/luisnquin/gif-app/commit/cc8df506a12a43101323bc3cd9044a60112cc82a)<br>
+ - feat: schemas.sql has been moved to the root directory and the path of all linked files to this schemas has been updated **(52075e5)** [See commit.](https://github.com/luisnquin/gif-app/commit/52075e525686760a47f7b27650aab167a12ba201)<br>
+ - feat: profile model **(db734c5)** [See commit.](https://github.com/luisnquin/gif-app/commit/db734c5ed10e3fe68c8dd21215cbcce6ab07d363)<br>
+ - feat: uncommented endpoints registration **(4409bcd)** [See commit.](https://github.com/luisnquin/gif-app/commit/4409bcd0bd2d45ae4f6001286e8d9e0f922a2394)<br>
+ - feat: deprecated endpoints has been removed **(353e897)** [See commit.](https://github.com/luisnquin/gif-app/commit/353e897310a51289b778a610a18823f608a02586)<br>
+ - feat: redoc docs mounted in /docs endpoint **(0b6da36)** [See commit.](https://github.com/luisnquin/gif-app/commit/0b6da36134b4acff41d476d960eb467fb6af8c9f)<br>
+ - fix: unnecessary host type has been removed **(5fa4d8b)** [See commit.](https://github.com/luisnquin/gif-app/commit/5fa4d8b0d3ed99c3671c97ba6ed4185087ecc442)<br>
+ - feat: CHANGELOG.md updated **(70f0ef1)** [See commit.](https://github.com/luisnquin/gif-app/commit/70f0ef1131d5bfa964115205bb6e97f04b190d9e)<br>
  - feat(Dockerfile): added /docs directory **(933f9f3)** [See commit.](https://github.com/luisnquin/gif-app/commit/933f9f382e456bb241f8235e7b1c6bb9f9f4361f)<br>
  - fix: redoc pkg implementation on an endpoint, replacing middleware as an option **(9b9a7c0)** [See commit.](https://github.com/luisnquin/gif-app/commit/9b9a7c08f7e25c9fc4dfe1accf7469480156c83c)<br>
  - feat: redoc configuration in config-server.json, ready to be used directly **(90a6a40)** [See commit.](https://github.com/luisnquin/gif-app/commit/90a6a4075f2b1e6089eb54eb2c1afadcb69d5e18)<br>
