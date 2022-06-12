@@ -1,4 +1,5 @@
 # Gif app - Changelog
+ - feat: make changelog added to pre-commit **(249d267)** [See commit.](https://github.com/luisnquin/gif-app/commit/249d267cde26f7566ffa3389cfdf61439693ccac)<br>
  - feat: pre-commit configuration file **(9258318)** [See commit.](https://github.com/luisnquin/gif-app/commit/9258318130842304f9c0c220d97e9559dae3c03e)<br>
  - feat: unnecessary "apply middlewares" function has been removed **(cc8df50)** [See commit.](https://github.com/luisnquin/gif-app/commit/cc8df506a12a43101323bc3cd9044a60112cc82a)<br>
  - feat: schemas.sql has been moved to the root directory and the path of all linked files to this schemas has been updated **(52075e5)** [See commit.](https://github.com/luisnquin/gif-app/commit/52075e525686760a47f7b27650aab167a12ba201)<br>

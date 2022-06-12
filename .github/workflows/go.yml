@@ -1,33 +1,31 @@
 name: Go
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build
-      run: make build
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-    - name: Setup Go environment
-      uses: actions/setup-go@v3.2.0
-      with:
-        # The Go version to download (if necessary) and use. Supports semver spec and ranges.
-        go-version: 1.18.2
-        # Path to the go.mod file.
-        go-version-file: ./go.mod
-        # Set this option to true if you want the action to always check for the latest available version that satisfies the version spec
-        check-latest: true
-        # Used to specify whether caching is needed. Set to true, if you'd like to enable caching.
-        cache: enable
-        # Used to specify the path to a dependency file - go.sum
-        cache-dependency-path: ./go.sum
-    
-    - name: auto-gofmt
-      uses: iamnotaturtle/auto-gofmt@v2.0.0
-      with:
-        commit_message: Formatted
+            - name: Set up Go
+              uses: actions/setup-go@v3.2.0
+              with:
+                  go-version: 1.18.2
+                  check-latest: true
+                  go-version-file: ./go.mod
+
+            - name: Build
+              run: go build -v ./...
+
+            - name: Tests
+              run: go test -v ./...
+
+            - name: auto-gofmt
+              uses: iamnotaturtle/auto-gofmt@v2.0.0
+              with:
+                  commit_message: Go code formatted
