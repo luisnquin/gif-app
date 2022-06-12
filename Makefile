@@ -10,8 +10,8 @@ run:
 	@./build/server
 
 image:
-	@echo 🐋
 	@docker build . -t server:latest --quiet
+	@echo Image builded 🐋
 
 store:
 	@docker-compose up -d postgres_db redis_cache

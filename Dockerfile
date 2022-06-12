@@ -24,6 +24,7 @@ RUN mkdir -p ./${project_name}/src
 # Project preparation
 COPY ./src/server ./${project_name}/src/server
 COPY ./config-server.json .
+COPY ./schemas.sql .
 COPY ./go.mod ./${project_name}
 COPY ./go.sum ./${project_name}
 COPY ./private.rsa.key .

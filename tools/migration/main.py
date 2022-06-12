@@ -17,7 +17,7 @@ def load_configuration() -> Configuration:
 
 
 def read_migration_file() -> List[str]:
-    with open(file="./src/database/schemas.sql", mode="r") as file:
+    with open(file="./schemas.sql", mode="r") as file:
         statements: List[str] = []
         statement: str = ""
 
