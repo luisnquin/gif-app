@@ -1,0 +1,17 @@
+default_language_version:
+    golang: go1.18.2
+fail_fast: false
+repos:
+    - repo: https://github.com/dnephin/pre-commit-golang
+      rev: v0.5.0
+      hooks:
+          - id: go-fmt
+          - id: go-vet
+          - id: go-build
+          - id: go-mod-tidy
+          - id: golangci-lint
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.3.0
+      hooks:
+          - id: check-json
+          - id: check-yaml
