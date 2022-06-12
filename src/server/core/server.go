@@ -8,7 +8,6 @@ import (
 	"os/signal"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func GracefulShutdown(app *echo.Echo) (startup func(string), wait func(), shutdown func()) {
@@ -31,18 +30,4 @@ func GracefulShutdown(app *echo.Echo) (startup func(string), wait func(), shutdo
 	}
 
 	return startup, wait, shutdown
-}
-
-func ApplyMiddlewares(app *echo.Echo, ms ...echo.MiddlewareFunc) {
-	// app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
-	app.Use(middleware.LoggerWithConfig(middleware.DefaultLoggerConfig))
-	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowHeaders: []string{"api-key", "Authorization"},
-		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodPatch, http.MethodDelete},
-		AllowOrigins: []string{"*"},
-	}))
-
-	for _, m := range ms {
-		app.Use(m)
-	}
 }

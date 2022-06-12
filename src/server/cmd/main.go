@@ -5,6 +5,7 @@ import (
 	"flag"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/gif-app/src/server/config"
 	"github.com/luisnquin/gif-app/src/server/core"
 	"github.com/luisnquin/gif-app/src/server/handlers"
@@ -38,7 +39,7 @@ func main() {
 	hosts["localhost"+port] = app
 
 	server := echo.New()
-	core.ApplyMiddlewares(server)
+	server.Use(middleware.CORS(), middleware.Logger(), middleware.Recover())
 
 	server.Any("/*", func(c echo.Context) error {
 		host := hosts[c.Request().Host]
