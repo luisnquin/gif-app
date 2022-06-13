@@ -9,6 +9,36 @@ import (
 	"context"
 )
 
+const changePasswordByID = `-- name: ChangePasswordByID :exec
+UPDATE users SET password = $1 WHERE id = $2
+`
+
+type ChangePasswordByIDParams struct {
+	Password string `db:"password" json:"password"`
+	ID       int32  `db:"id" json:"id"`
+}
+
+func (q *Queries) ChangePasswordByID(ctx context.Context, arg ChangePasswordByIDParams) error {
+	_, err := q.db.ExecContext(ctx, changePasswordByID, arg.Password, arg.ID)
+	return err
+}
+
+const createProfile = `-- name: CreateProfile :one
+INSERT INTO profiles(id) VALUES($1) RETURNING id, last_connection, created_at, updated_at
+`
+
+func (q *Queries) CreateProfile(ctx context.Context, id int32) (Profile, error) {
+	row := q.db.QueryRowContext(ctx, createProfile, id)
+	var i Profile
+	err := row.Scan(
+		&i.ID,
+		&i.LastConnection,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (username, firstname, lastname, email, password, role) 
 VALUES($1, $2, $3, $4, $5, $6) RETURNING id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at
@@ -48,21 +78,21 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	return i, err
 }
 
-const deleteUser = `-- name: DeleteUser :exec
+const deleteUserByID = `-- name: DeleteUserByID :exec
 DELETE FROM users WHERE id = $1
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
-	_, err := q.db.ExecContext(ctx, deleteUser, id)
+func (q *Queries) DeleteUserByID(ctx context.Context, id int32) error {
+	_, err := q.db.ExecContext(ctx, deleteUserByID, id)
 	return err
 }
 
-const getUser = `-- name: GetUser :one
+const getUserByID = `-- name: GetUserByID :one
 SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE id = $1 LIMIT 1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
+func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByID, id)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -145,16 +175,27 @@ func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
 }
 
 const userExists = `-- name: UserExists :one
+SELECT exists(SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE id = $1)
+`
+
+func (q *Queries) UserExists(ctx context.Context, id int32) (bool, error) {
+	row := q.db.QueryRowContext(ctx, userExists, id)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
+}
+
+const userExistsByUsernameOrEmail = `-- name: UserExistsByUsernameOrEmail :one
 SELECT exists(SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE username=$1 OR email=$2)
 `
 
-type UserExistsParams struct {
+type UserExistsByUsernameOrEmailParams struct {
 	Username string `db:"username" json:"username"`
 	Email    string `db:"email" json:"email"`
 }
 
-func (q *Queries) UserExists(ctx context.Context, arg UserExistsParams) (bool, error) {
-	row := q.db.QueryRowContext(ctx, userExists, arg.Username, arg.Email)
+func (q *Queries) UserExistsByUsernameOrEmail(ctx context.Context, arg UserExistsByUsernameOrEmailParams) (bool, error) {
+	row := q.db.QueryRowContext(ctx, userExistsByUsernameOrEmail, arg.Username, arg.Email)
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err

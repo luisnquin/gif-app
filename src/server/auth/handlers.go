@@ -86,7 +86,7 @@ func (a *Auth) SignUpHandler() echo.HandlerFunc {
 			return echo.ErrBadRequest
 		}
 
-		exists, err := a.provider.UserExists(c.Request().Context(), provider.UserExistsParams{
+		exists, err := a.provider.UserExistsByUsernameOrEmail(c.Request().Context(), provider.UserExistsByUsernameOrEmailParams{
 			Username: request.Username,
 			Email:    request.Email,
 		})
