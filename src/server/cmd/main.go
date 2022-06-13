@@ -9,7 +9,7 @@ import (
 	"github.com/luisnquin/gif-app/src/server/config"
 	"github.com/luisnquin/gif-app/src/server/core"
 	"github.com/luisnquin/gif-app/src/server/handlers"
-	"github.com/luisnquin/gif-app/src/server/repository"
+	"github.com/luisnquin/gif-app/src/server/provider"
 	"github.com/luisnquin/gif-app/src/server/store"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	flag.Parse()
 
 	db, cache := store.New(config)
-	provider := repository.New(db)
+	provider := provider.New(db)
 
 	// Hosts
 	api, internal, app := echo.New(), echo.New(), echo.New()

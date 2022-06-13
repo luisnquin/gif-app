@@ -11,14 +11,14 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/gif-app/src/server/log"
-	"github.com/luisnquin/gif-app/src/server/models"
+	"github.com/luisnquin/gif-app/src/server/provider"
 	"github.com/luisnquin/gif-app/src/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func (a *Auth) LoginHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var req models.User
+		var req provider.User
 
 		err := c.Bind(&req)
 		if err != nil {
@@ -29,7 +29,11 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 			return echo.ErrBadRequest
 		}
 
-		user, err := a.provider.GetUserByEmailOrUsername(c.Request().Context(), req.Username, req.Email)
+		user, err := a.provider.GetUserByUsernameOrEmail(c.Request().Context(), provider.GetUserByUsernameOrEmailParams{
+			Username: req.Username,
+			Email:    req.Email,
+		})
+
 		if err != nil {
 			log.Error(err)
 
@@ -63,7 +67,7 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 			Value:    token,
 		})
 
-		return c.JSON(http.StatusOK, models.TokenResponse{
+		return c.JSON(http.StatusOK, TokenResponse{
 			Token: token,
 		})
 	}
@@ -71,18 +75,22 @@ func (a *Auth) LoginHandler() echo.HandlerFunc {
 
 func (a *Auth) SignUpHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var user models.User
+		var request provider.User
 
-		err := c.Bind(&user)
+		err := c.Bind(&request)
 		if err != nil {
 			return echo.ErrBadRequest
 		}
 
-		if user.Username == "" || user.Firstname == "" || user.Lastname == "" || user.Email == "" || user.Password == "" {
+		if request.Username == "" || request.Firstname == "" || request.Lastname == "" || request.Email == "" || request.Password == "" {
 			return echo.ErrBadRequest
 		}
 
-		exists, err := a.provider.UsernameOrEmailExists(c.Request().Context(), user.Username, user.Email)
+		exists, err := a.provider.UserExists(c.Request().Context(), provider.UserExistsParams{
+			Username: request.Username,
+			Email:    request.Email,
+		})
+
 		if err != nil {
 			log.Error(err)
 
@@ -93,20 +101,28 @@ func (a *Auth) SignUpHandler() echo.HandlerFunc {
 			return echo.ErrBadRequest
 		}
 
-		password, err := utils.GenHashedPassword(user.Password)
+		password, err := utils.GenHashedPassword(request.Password)
 		if err != nil {
 			log.Error(err)
 			return echo.ErrInternalServerError
 		}
 
-		user.Role = UserDefaultRole
-		user.Password = password
-		user.CreatedAt = time.Now()
-		user.UpdatedAt = time.Now()
+		request.Role = UserDefaultRole
+		request.Password = password
+		request.CreatedAt = time.Now()
+		request.UpdatedAt = time.Now()
 
 		// Add email verification.
 
-		err = a.provider.SaveUser(c.Request().Context(), user)
+		_, err = a.provider.CreateUser(c.Request().Context(), provider.CreateUserParams{
+			Firstname: request.Firstname,
+			Lastname:  request.Lastname,
+			Username:  request.Username,
+			Password:  request.Password,
+			Email:     request.Email,
+			Role:      request.Role,
+		})
+
 		if err != nil {
 			log.Error(err)
 

@@ -15,8 +15,8 @@ func (h *HandlerHead) registerAuthHandlers(app *echo.Echo) {
 }
 
 func (h *HandlerHead) registerInternalHandlers(app *echo.Echo) {
-	app.GET("/health", store.HealthHandler(h.db, h.cache))
-	app.POST("/automock", store.AutoMockHandler(h.db))
+	app.GET("/health", store.HealthHandler(h.store, h.cache))
+	app.POST("/automock", store.AutoMockHandler(h.store))
 }
 
 func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {

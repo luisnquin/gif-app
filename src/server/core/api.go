@@ -1,4 +1,4 @@
-package models
+package core
 
 type StandardResponse struct {
 	APIVersion string            `json:"apiVersion"`

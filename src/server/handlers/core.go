@@ -2,31 +2,32 @@
 package handlers
 
 import (
+	"database/sql"
+
 	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/gif-app/src/server/auth"
 	"github.com/luisnquin/gif-app/src/server/config"
-	"github.com/luisnquin/gif-app/src/server/repository"
-	"github.com/luisnquin/gif-app/src/server/store"
+	"github.com/luisnquin/gif-app/src/server/provider"
 )
 
 type HandlerHead struct {
 	config   *config.Configuration
-	provider *repository.Provider
-	db       store.Querier
+	provider *provider.Queries
+	store    *sql.DB
 	cache    *redis.Client
 	auth     *auth.Auth
 }
 
-func New(config *config.Configuration, provider *repository.Provider, db store.Querier, cache *redis.Client) *HandlerHead {
+func New(config *config.Configuration, provider *provider.Queries, store *sql.DB, cache *redis.Client) *HandlerHead {
 	auth := auth.New(config, provider)
 
 	return &HandlerHead{
 		provider: provider,
 		config:   config,
 		cache:    cache,
+		store:    store,
 		auth:     auth,
-		db:       db,
 	}
 }
 

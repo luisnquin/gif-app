@@ -7,8 +7,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/luisnquin/gif-app/src/server/config"
-	"github.com/luisnquin/gif-app/src/server/models"
-	"github.com/luisnquin/gif-app/src/server/repository"
+	"github.com/luisnquin/gif-app/src/server/provider"
 )
 
 const (
@@ -18,12 +17,12 @@ const (
 
 type Auth struct {
 	config     *config.Configuration
-	provider   *repository.Provider
 	JWTConfig  middleware.JWTConfig
+	provider   *provider.Queries
 	privateKey *rsa.PrivateKey
 }
 
-func New(config *config.Configuration, provider *repository.Provider) *Auth {
+func New(config *config.Configuration, provider *provider.Queries) *Auth {
 	privateKey, publicKey := loadKeys()
 
 	return &Auth{
@@ -32,7 +31,7 @@ func New(config *config.Configuration, provider *repository.Provider) *Auth {
 		config:     config,
 		JWTConfig: middleware.JWTConfig{
 			SigningMethod: jwt.SigningMethodRS256.Alg(),
-			Claims:        &models.Claims{},
+			Claims:        &Claims{},
 			SigningKey:    privateKey,
 			KeyFunc: func(token *jwt.Token) (any, error) {
 				return publicKey, nil

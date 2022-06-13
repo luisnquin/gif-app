@@ -1,7 +1,9 @@
+//nolint:typecheck
 package store
 
 import (
 	"bufio"
+	"database/sql"
 	"fmt"
 	"net/http"
 	"os/exec"
@@ -11,7 +13,7 @@ import (
 	"github.com/luisnquin/gif-app/src/server/log"
 )
 
-func HealthHandler(db Querier, cache *redis.Client) echo.HandlerFunc {
+func HealthHandler(db *sql.DB, cache *redis.Client) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		err := cache.Ping(c.Request().Context()).Err()
 		if err != nil {
@@ -31,7 +33,7 @@ func HealthHandler(db Querier, cache *redis.Client) echo.HandlerFunc {
 	}
 }
 
-func AutoMockHandler(db Querier) echo.HandlerFunc {
+func AutoMockHandler(db *sql.DB) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// TODO: Let handle tool
 		cmd := exec.CommandContext(c.Request().Context(), "python3", "./tools/automock/main.py", "--stdout", "--length=10")
@@ -66,7 +68,7 @@ func AutoMockHandler(db Querier) echo.HandlerFunc {
 		}
 
 		for _, stmt := range stmts {
-			_, err := db.Exec(c.Request().Context(), stmt)
+			_, err := db.ExecContext(c.Request().Context(), stmt)
 			if err != nil {
 				log.Error(err)
 			}
