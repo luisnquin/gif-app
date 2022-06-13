@@ -44,6 +44,7 @@ type database struct {
 	SecondsToTimeOut time.Duration `json:"timeOut"`
 	InLocalDSN       string        `json:"inLocalDsn"`
 	InContainerDSN   string        `json:"inContainerDsn"`
+	SchemasPath      string        `json:"schemasPath"`
 }
 
 type cache struct {
