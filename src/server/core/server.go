@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"syscall"
 
 	"github.com/labstack/echo/v4"
 )
@@ -19,7 +20,7 @@ func GracefulShutdown(app *echo.Echo) (startup func(string), wait func(), shutdo
 
 	wait = func() {
 		shutdown := make(chan os.Signal, 1)
-		signal.Notify(shutdown, os.Interrupt, os.Kill)
+		signal.Notify(shutdown, syscall.SIGINT, syscall.SIGKILL)
 		<-shutdown
 	}
 

@@ -20,11 +20,12 @@ func (h *HandlerHead) registerInternalHandlers(app *echo.Echo) {
 }
 
 func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
+	app.GET("/test/free", h.AHandler())
+	app.GET("/test/unfree", h.BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
+
 	app.GET("/docs", echoredoc.EchoHandler(h.config.Docs))
 	app.File("/docs/openapi.yaml", h.config.Docs.SpecFile)
 	app.File("/docs/favicon.png", "./docs/favicon.png")
-
-	app.GET("/hi", BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
 
 	app.GET("/:username/profile", nil)
 	app.PUT("/:username/profile", nil)

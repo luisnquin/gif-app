@@ -1,5 +1,9 @@
 package core
 
+const (
+	APIVersion string = "v0.0.0"
+)
+
 type StandardResponse struct {
 	APIVersion string            `json:"apiVersion"`
 	Context    string            `json:"context"`
