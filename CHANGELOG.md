@@ -1,4 +1,17 @@
 # Gif app - Changelog
+ - feat: handler groups, and test handlers now are fully commented **(df0e4c6)** [See commit.](https://github.com/luisnquin/gif-app/commit/df0e4c62e11b792798447a4207eec6810e93defa)<br>
+ - feat: now using constants instead variables in 'GracefulShutdown', refactor in test handlers registering and usage of StandardResponse in the same handlers **(4fd43ad)** [See commit.](https://github.com/luisnquin/gif-app/commit/4fd43ad3a95010ed68f5ab0afce8974825af0de3)<br>
+ - feat: new provider methods **(723bf05)** [See commit.](https://github.com/luisnquin/gif-app/commit/723bf053ca10b97b146c768894b0de4c18bbf472)<br>
+ - feat: sqlc pkg now as provider pkg and pkg models removed **(def0add)** [See commit.](https://github.com/luisnquin/gif-app/commit/def0add6fb3156c345bfdc841cdf65c5cb0642c7)<br>
+ - fix: missing schemas path has been added to config struct **(5114fb6)** [See commit.](https://github.com/luisnquin/gif-app/commit/5114fb640b7beb8604f0f7f667e133ab12124804)<br>
+ - fix: missing foreign key constraint in profiles schemas **(deb1125)** [See commit.](https://github.com/luisnquin/gif-app/commit/deb11258ca048804b6662c7d3fa469a111d1399c)<br>
+ - fix: broken paths in py files due to new path of sql schemas and little fix in migration tools when scans lines of the provided schemas file **(a7d2822)** [See commit.](https://github.com/luisnquin/gif-app/commit/a7d28225b7ff98aa50a95923e4346f94798cd1b7)<br>
+ - feat: sqlc, first steps of implementation and sql files moved to the new directory 'sql' **(2af80ec)** [See commit.](https://github.com/luisnquin/gif-app/commit/2af80ec2df771f7c31a8406aa8c1a6b0a804f87b)<br>
+ - feat: go mod tidy and replacement removed **(6832ee7)** [See commit.](https://github.com/luisnquin/gif-app/commit/6832ee7c3363490ba424da832326dcc3c26bc776)<br>
+ - fix: cache enable pair has been removed from go setup **(642db0a)** [See commit.](https://github.com/luisnquin/gif-app/commit/642db0a7a2b1238b8d73329bf5278a4be95c2947)<br>
+ - fix: gofmt 'removed' from github actions file **(b32cd3b)** [See commit.](https://github.com/luisnquin/gif-app/commit/b32cd3b3f8f07a9f2b938647e502837cd71b1dbd)<br>
+ - fix: github actions for go **(6e571b3)** [See commit.](https://github.com/luisnquin/gif-app/commit/6e571b3c9db12e20a1aa1a47de59833abded17bb)<br>
+ - fix: github actions has been fixed with the precommit config file **(8b4a469)** [See commit.](https://github.com/luisnquin/gif-app/commit/8b4a4696c5f07ecd560c46330424d5a82e01d688)<br>
  - feat: make changelog added to pre-commit **(249d267)** [See commit.](https://github.com/luisnquin/gif-app/commit/249d267cde26f7566ffa3389cfdf61439693ccac)<br>
  - feat: pre-commit configuration file **(9258318)** [See commit.](https://github.com/luisnquin/gif-app/commit/9258318130842304f9c0c220d97e9559dae3c03e)<br>
  - feat: unnecessary "apply middlewares" function has been removed **(cc8df50)** [See commit.](https://github.com/luisnquin/gif-app/commit/cc8df506a12a43101323bc3cd9044a60112cc82a)<br>
