@@ -1,5 +1,7 @@
 # Gif App
 
+See changelog [here](https://github.com/luisnquin/gif-app/blob/master/CHANGELOG.md)
+
 ## Steps to run:
 
 -   Clone the project to your machine
