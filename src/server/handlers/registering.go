@@ -20,34 +20,36 @@ func (h *HandlerHead) registerInternalHandlers(app *echo.Echo) {
 }
 
 func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
-	app.GET("/test/free", h.AHandler())
-	app.GET("/test/unfree", h.BHandler(), middleware.JWTWithConfig(h.auth.JWTConfig))
-
 	app.GET("/docs", echoredoc.EchoHandler(h.config.Docs))
 	app.File("/docs/openapi.yaml", h.config.Docs.SpecFile)
 	app.File("/docs/favicon.png", "./docs/favicon.png")
 
-	app.GET("/:username/profile", nil)
-	app.PUT("/:username/profile", nil)
-	app.DELETE("/:username/profile", nil)
+	profile := app.Group("/:username/profile", middleware.JWTWithConfig(h.auth.JWTConfig))
+	profile.GET("", nil)
+	profile.PUT("", nil)
+	profile.DELETE("", nil)
 
-	app.GET("/:username/gifs", nil)
-	app.GET("/:username/gifs/:hash", nil)
-	app.POST("/:username/gif", nil)
-	app.PUT("/:username/gifs/:hash", nil)
-	app.DELETE("/:username/gifs/:hash", nil)
-	app.DELETE("/:username/gifs", nil) // request body (Menu)
+	myGifs := app.Group("/:username/gifs", middleware.JWTWithConfig(h.auth.JWTConfig))
+	myGifs.GET("", nil)
+	myGifs.GET("/:hash", nil)
+	myGifs.POST("", nil)
+	myGifs.PUT("/:hash", nil)
+	myGifs.DELETE("/:hash", nil)
+	myGifs.DELETE("", nil) // request body (Menu)
 
-	app.GET("/stats", nil)
+	stats := app.Group("/stats")
+	stats.GET("/", nil)
 
-	app.GET("/gifs", nil)
-	app.GET("/gifs/search", nil)
-	app.GET("/gifs/:hash", nil)
-	app.POST("/gif", nil)
-	app.POST("/gifs/:hash", nil) // comments, etc
-	app.POST("/gifs/:hash/report", nil)
+	allGifs := app.Group("/gifs")
+	allGifs.GET("", nil)
+	allGifs.GET("/search", nil)
+	allGifs.GET("/:hash", nil)
+	allGifs.POST("", nil)
+	allGifs.POST("/:hash", nil) // comments, etc
+	allGifs.POST("/:hash/report", nil)
 
 	// Console
-	app.GET("/reports", nil)
-	app.POST("/reports/:hash", nil)
+	console := app.Group("/console", middleware.JWTWithConfig(h.auth.JWTConfig))
+	console.GET("/reports", nil)
+	console.POST("/reports/:hash", nil)
 }

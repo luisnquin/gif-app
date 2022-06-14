@@ -1,13 +1,7 @@
 //nolint:typecheck
 package handlers
 
-import (
-	"net/http"
-
-	"github.com/labstack/echo/v4"
-	"github.com/luisnquin/gif-app/src/server/auth"
-	"github.com/luisnquin/gif-app/src/server/core"
-)
+/*
 
 func (h *HandlerHead) AHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -40,3 +34,5 @@ func (h *HandlerHead) BHandler() echo.HandlerFunc {
 		})
 	}
 }
+
+*/
