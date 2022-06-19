@@ -7,6 +7,7 @@ package provider
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/lib/pq"
 )
@@ -23,6 +24,78 @@ type ChangePasswordByIDParams struct {
 func (q *Queries) ChangePasswordByID(ctx context.Context, arg ChangePasswordByIDParams) error {
 	_, err := q.db.ExecContext(ctx, changePasswordByID, arg.Password, arg.ID)
 	return err
+}
+
+const createMention = `-- name: CreateMention :exec
+INSERT INTO mentions(source, target) VALUES($1, $2)
+`
+
+type CreateMentionParams struct {
+	Source int32  `db:"source" json:"source"`
+	Target string `db:"target" json:"target"`
+}
+
+func (q *Queries) CreateMention(ctx context.Context, arg CreateMentionParams) error {
+	_, err := q.db.ExecContext(ctx, createMention, arg.Source, arg.Target)
+	return err
+}
+
+const createPost = `-- name: CreatePost :one
+INSERT INTO posts(profile_id, external_source, description) VALUES($1, $2, $3) RETURNING id, profile_id, created_at, updated_at, external_source, description, tags, is_read_only
+`
+
+type CreatePostParams struct {
+	ProfileID      sql.NullInt32  `db:"profile_id" json:"profileID"`
+	ExternalSource string         `db:"external_source" json:"externalSource"`
+	Description    sql.NullString `db:"description" json:"description"`
+}
+
+func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, error) {
+	row := q.db.QueryRowContext(ctx, createPost, arg.ProfileID, arg.ExternalSource, arg.Description)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.ProfileID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ExternalSource,
+		&i.Description,
+		pq.Array(&i.Tags),
+		&i.IsReadOnly,
+	)
+	return i, err
+}
+
+const createPostWithTags = `-- name: CreatePostWithTags :one
+INSERT INTO posts(profile_id, external_source, description, tags) VALUES($1, $2, $3, $4) RETURNING id, profile_id, created_at, updated_at, external_source, description, tags, is_read_only
+`
+
+type CreatePostWithTagsParams struct {
+	ProfileID      sql.NullInt32  `db:"profile_id" json:"profileID"`
+	ExternalSource string         `db:"external_source" json:"externalSource"`
+	Description    sql.NullString `db:"description" json:"description"`
+	Tags           []string       `db:"tags" json:"tags"`
+}
+
+func (q *Queries) CreatePostWithTags(ctx context.Context, arg CreatePostWithTagsParams) (Post, error) {
+	row := q.db.QueryRowContext(ctx, createPostWithTags,
+		arg.ProfileID,
+		arg.ExternalSource,
+		arg.Description,
+		pq.Array(arg.Tags),
+	)
+	var i Post
+	err := row.Scan(
+		&i.ID,
+		&i.ProfileID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ExternalSource,
+		&i.Description,
+		pq.Array(&i.Tags),
+		&i.IsReadOnly,
+	)
+	return i, err
 }
 
 const createProfile = `-- name: CreateProfile :one

@@ -25,3 +25,12 @@ SELECT * FROM users WHERE username = $1 OR email = $2;
 
 -- name: CreateProfile :one
 INSERT INTO profiles(id) VALUES($1) RETURNING *;
+
+-- name: CreatePost :one
+INSERT INTO posts(profile_id, external_source, description) VALUES($1, $2, $3) RETURNING *;
+
+-- name: CreatePostWithTags :one
+INSERT INTO posts(profile_id, external_source, description, tags) VALUES($1, $2, $3, $4) RETURNING *;
+
+-- name: CreateMention :exec
+INSERT INTO mentions(source, target) VALUES($1, $2);
