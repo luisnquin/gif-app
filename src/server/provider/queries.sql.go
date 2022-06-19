@@ -8,6 +8,7 @@ package provider
 import (
 	"context"
 	"database/sql"
+	"time"
 
 	"github.com/lib/pq"
 )
@@ -160,6 +161,80 @@ DELETE FROM users WHERE id = $1
 func (q *Queries) DeleteUserByID(ctx context.Context, id int32) error {
 	_, err := q.db.ExecContext(ctx, deleteUserByID, id)
 	return err
+}
+
+const getFullProfile = `-- name: GetFullProfile :one
+SELECT 
+    u.id, u.username, u.firstname, u.lastname, u.email, u.roles, u.birthday, u.created_at, u.updated_at, p.last_connection
+FROM users AS u INNER JOIN profiles AS p ON p.id = u.id WHERE u.id = $1
+`
+
+type GetFullProfileRow struct {
+	ID             int32        `db:"id" json:"id"`
+	Username       string       `db:"username" json:"username"`
+	Firstname      string       `db:"firstname" json:"firstname"`
+	Lastname       string       `db:"lastname" json:"lastname"`
+	Email          string       `db:"email" json:"email"`
+	Roles          []string     `db:"roles" json:"roles"`
+	Birthday       sql.NullTime `db:"birthday" json:"birthday"`
+	CreatedAt      time.Time    `db:"created_at" json:"createdAt"`
+	UpdatedAt      time.Time    `db:"updated_at" json:"updatedAt"`
+	LastConnection sql.NullTime `db:"last_connection" json:"lastConnection"`
+}
+
+func (q *Queries) GetFullProfile(ctx context.Context, id int32) (GetFullProfileRow, error) {
+	row := q.db.QueryRowContext(ctx, getFullProfile, id)
+	var i GetFullProfileRow
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Firstname,
+		&i.Lastname,
+		&i.Email,
+		pq.Array(&i.Roles),
+		&i.Birthday,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.LastConnection,
+	)
+	return i, err
+}
+
+const getFullProfileByUsername = `-- name: GetFullProfileByUsername :one
+SELECT 
+    u.id, u.username, u.firstname, u.lastname, u.email, u.roles, u.birthday, u.created_at, u.updated_at, p.last_connection
+FROM users AS u INNER JOIN profiles AS p ON p.id = u.id WHERE u.username = $1
+`
+
+type GetFullProfileByUsernameRow struct {
+	ID             int32        `db:"id" json:"id"`
+	Username       string       `db:"username" json:"username"`
+	Firstname      string       `db:"firstname" json:"firstname"`
+	Lastname       string       `db:"lastname" json:"lastname"`
+	Email          string       `db:"email" json:"email"`
+	Roles          []string     `db:"roles" json:"roles"`
+	Birthday       sql.NullTime `db:"birthday" json:"birthday"`
+	CreatedAt      time.Time    `db:"created_at" json:"createdAt"`
+	UpdatedAt      time.Time    `db:"updated_at" json:"updatedAt"`
+	LastConnection sql.NullTime `db:"last_connection" json:"lastConnection"`
+}
+
+func (q *Queries) GetFullProfileByUsername(ctx context.Context, username string) (GetFullProfileByUsernameRow, error) {
+	row := q.db.QueryRowContext(ctx, getFullProfileByUsername, username)
+	var i GetFullProfileByUsernameRow
+	err := row.Scan(
+		&i.ID,
+		&i.Username,
+		&i.Firstname,
+		&i.Lastname,
+		&i.Email,
+		pq.Array(&i.Roles),
+		&i.Birthday,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.LastConnection,
+	)
+	return i, err
 }
 
 const getUserByID = `-- name: GetUserByID :one

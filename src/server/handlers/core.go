@@ -8,26 +8,30 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/luisnquin/gif-app/src/server/auth"
 	"github.com/luisnquin/gif-app/src/server/config"
+	"github.com/luisnquin/gif-app/src/server/controllers"
 	"github.com/luisnquin/gif-app/src/server/provider"
 )
 
 type HandlerHead struct {
-	config   *config.Configuration
-	provider *provider.Queries
-	store    *sql.DB
-	cache    *redis.Client
-	auth     *auth.Auth
+	controller *controllers.ServiceMan
+	config     *config.Configuration
+	provider   *provider.Queries
+	cache      *redis.Client
+	auth       *auth.Auth
+	store      *sql.DB
 }
 
 func New(config *config.Configuration, provider *provider.Queries, store *sql.DB, cache *redis.Client) *HandlerHead {
+	controller := controllers.NewServices(store, provider)
 	auth := auth.New(config, provider)
 
 	return &HandlerHead{
-		provider: provider,
-		config:   config,
-		cache:    cache,
-		store:    store,
-		auth:     auth,
+		controller: controller,
+		provider:   provider,
+		config:     config,
+		cache:      cache,
+		store:      store,
+		auth:       auth,
 	}
 }
 

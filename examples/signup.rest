@@ -1,0 +1,10 @@
+POST http://api.localhost:5800/signup
+Content-Type: application/json
+
+{
+    "firstname": "Luis",
+    "lastname": "Quiñones",
+    "username": "luisnquin",
+    "email": "lpaandres2020@gmail.com",
+    "password": "aesda"
+}

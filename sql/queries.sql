@@ -29,6 +29,16 @@ INSERT INTO profiles(id) VALUES($1) RETURNING *;
 -- name: CreatePost :one
 INSERT INTO posts(profile_id, external_source, description) VALUES($1, $2, $3) RETURNING *;
 
+-- name: GetFullProfile :one
+SELECT 
+    u.id, u.username, u.firstname, u.lastname, u.email, u.roles, u.birthday, u.created_at, u.updated_at, p.last_connection
+FROM users AS u INNER JOIN profiles AS p ON p.id = u.id WHERE u.id = $1; 
+
+-- name: GetFullProfileByUsername :one
+SELECT 
+    u.id, u.username, u.firstname, u.lastname, u.email, u.roles, u.birthday, u.created_at, u.updated_at, p.last_connection
+FROM users AS u INNER JOIN profiles AS p ON p.id = u.id WHERE u.username = $1; 
+
 -- name: CreatePostWithTags :one
 INSERT INTO posts(profile_id, external_source, description, tags) VALUES($1, $2, $3, $4) RETURNING *;
 

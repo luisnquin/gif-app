@@ -25,7 +25,7 @@ func (h *HandlerHead) registerAPIHandlers(app *echo.Echo) {
 	app.File("/docs/favicon.png", "./docs/favicon.png")
 
 	profile := app.Group("/:username/profile", middleware.JWTWithConfig(h.auth.JWTConfig))
-	profile.GET("", nil)
+	profile.GET("", h.controller.GetFullProfile())
 	profile.PUT("", nil)
 	profile.DELETE("", nil)
 
