@@ -9,6 +9,23 @@ import (
 	"time"
 )
 
+type Mention struct {
+	ID     int32  `db:"id" json:"id"`
+	Source int32  `db:"source" json:"source"`
+	Target string `db:"target" json:"target"`
+}
+
+type Post struct {
+	ID             int32          `db:"id" json:"id"`
+	ProfileID      sql.NullInt32  `db:"profile_id" json:"profileID"`
+	CreatedAt      time.Time      `db:"created_at" json:"createdAt"`
+	UpdatedAt      time.Time      `db:"updated_at" json:"updatedAt"`
+	ExternalSource string         `db:"external_source" json:"externalSource"`
+	Description    sql.NullString `db:"description" json:"description"`
+	Tags           []string       `db:"tags" json:"tags"`
+	IsReadOnly     sql.NullBool   `db:"is_read_only" json:"isReadOnly"`
+}
+
 type Profile struct {
 	ID             int32        `db:"id" json:"id"`
 	LastConnection sql.NullTime `db:"last_connection" json:"lastConnection"`
@@ -23,7 +40,7 @@ type User struct {
 	Lastname  string       `db:"lastname" json:"lastname"`
 	Email     string       `db:"email" json:"email"`
 	Password  string       `db:"password" json:"password"`
-	Role      string       `db:"role" json:"role"`
+	Roles     []string     `db:"roles" json:"roles"`
 	Birthday  sql.NullTime `db:"birthday" json:"birthday"`
 	CreatedAt time.Time    `db:"created_at" json:"createdAt"`
 	UpdatedAt time.Time    `db:"updated_at" json:"updatedAt"`

@@ -107,7 +107,7 @@ func (a *Auth) SignUpHandler() echo.HandlerFunc {
 			return echo.ErrInternalServerError
 		}
 
-		request.Role = UserDefaultRole
+		request.Roles = []string{DefaultRole}
 		request.Password = password
 		request.CreatedAt = time.Now()
 		request.UpdatedAt = time.Now()
@@ -120,7 +120,7 @@ func (a *Auth) SignUpHandler() echo.HandlerFunc {
 			Username:  request.Username,
 			Password:  request.Password,
 			Email:     request.Email,
-			Role:      request.Role,
+			Roles:     request.Roles,
 		})
 
 		if err != nil {

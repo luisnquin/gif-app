@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	AdminRole       string = "PRIVILEGED"
-	UserDefaultRole string = "USER"
+	AdminRole   string = "PRIVILEGED"
+	DefaultRole string = "USER"
 )
 
 type Auth struct {

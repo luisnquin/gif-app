@@ -8,7 +8,7 @@ SELECT * FROM users WHERE id = $1 LIMIT 1;
 DELETE FROM users WHERE id = $1;
 
 -- name: CreateUser :one
-INSERT INTO users (username, firstname, lastname, email, password, role) 
+INSERT INTO users (username, firstname, lastname, email, password, roles) 
 VALUES($1, $2, $3, $4, $5, $6) RETURNING *;
 
 -- name: UserExistsByUsernameOrEmail :one

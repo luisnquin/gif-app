@@ -7,6 +7,8 @@ package provider
 
 import (
 	"context"
+
+	"github.com/lib/pq"
 )
 
 const changePasswordByID = `-- name: ChangePasswordByID :exec
@@ -40,17 +42,17 @@ func (q *Queries) CreateProfile(ctx context.Context, id int32) (Profile, error) 
 }
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (username, firstname, lastname, email, password, role) 
-VALUES($1, $2, $3, $4, $5, $6) RETURNING id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at
+INSERT INTO users (username, firstname, lastname, email, password, roles) 
+VALUES($1, $2, $3, $4, $5, $6) RETURNING id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at
 `
 
 type CreateUserParams struct {
-	Username  string `db:"username" json:"username"`
-	Firstname string `db:"firstname" json:"firstname"`
-	Lastname  string `db:"lastname" json:"lastname"`
-	Email     string `db:"email" json:"email"`
-	Password  string `db:"password" json:"password"`
-	Role      string `db:"role" json:"role"`
+	Username  string   `db:"username" json:"username"`
+	Firstname string   `db:"firstname" json:"firstname"`
+	Lastname  string   `db:"lastname" json:"lastname"`
+	Email     string   `db:"email" json:"email"`
+	Password  string   `db:"password" json:"password"`
+	Roles     []string `db:"roles" json:"roles"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
@@ -60,7 +62,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		arg.Lastname,
 		arg.Email,
 		arg.Password,
-		arg.Role,
+		pq.Array(arg.Roles),
 	)
 	var i User
 	err := row.Scan(
@@ -70,7 +72,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Lastname,
 		&i.Email,
 		&i.Password,
-		&i.Role,
+		pq.Array(&i.Roles),
 		&i.Birthday,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -88,7 +90,7 @@ func (q *Queries) DeleteUserByID(ctx context.Context, id int32) error {
 }
 
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE id = $1 LIMIT 1
+SELECT id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at FROM users WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
@@ -101,7 +103,7 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 		&i.Lastname,
 		&i.Email,
 		&i.Password,
-		&i.Role,
+		pq.Array(&i.Roles),
 		&i.Birthday,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -110,7 +112,7 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 }
 
 const getUserByUsernameOrEmail = `-- name: GetUserByUsernameOrEmail :one
-SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE username = $1 OR email = $2
+SELECT id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at FROM users WHERE username = $1 OR email = $2
 `
 
 type GetUserByUsernameOrEmailParams struct {
@@ -128,7 +130,7 @@ func (q *Queries) GetUserByUsernameOrEmail(ctx context.Context, arg GetUserByUse
 		&i.Lastname,
 		&i.Email,
 		&i.Password,
-		&i.Role,
+		pq.Array(&i.Roles),
 		&i.Birthday,
 		&i.CreatedAt,
 		&i.UpdatedAt,
@@ -137,7 +139,7 @@ func (q *Queries) GetUserByUsernameOrEmail(ctx context.Context, arg GetUserByUse
 }
 
 const getUsers = `-- name: GetUsers :many
-SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users
+SELECT id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at FROM users
 `
 
 func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
@@ -156,7 +158,7 @@ func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
 			&i.Lastname,
 			&i.Email,
 			&i.Password,
-			&i.Role,
+			pq.Array(&i.Roles),
 			&i.Birthday,
 			&i.CreatedAt,
 			&i.UpdatedAt,
@@ -175,7 +177,7 @@ func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
 }
 
 const userExists = `-- name: UserExists :one
-SELECT exists(SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE id = $1)
+SELECT exists(SELECT id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at FROM users WHERE id = $1)
 `
 
 func (q *Queries) UserExists(ctx context.Context, id int32) (bool, error) {
@@ -186,7 +188,7 @@ func (q *Queries) UserExists(ctx context.Context, id int32) (bool, error) {
 }
 
 const userExistsByUsernameOrEmail = `-- name: UserExistsByUsernameOrEmail :one
-SELECT exists(SELECT id, username, firstname, lastname, email, password, role, birthday, created_at, updated_at FROM users WHERE username=$1 OR email=$2)
+SELECT exists(SELECT id, username, firstname, lastname, email, password, roles, birthday, created_at, updated_at FROM users WHERE username=$1 OR email=$2)
 `
 
 type UserExistsByUsernameOrEmailParams struct {
